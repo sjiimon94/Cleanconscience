@@ -2,17 +2,26 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { siteConfig } from "../../config/site";
 
 export const metadata: Metadata = {
   title: {
-    default: "Cleanconscience",
-    template: "%s | Cleanconscience",
+    default: siteConfig.siteName,
+    template: `%s | ${siteConfig.siteName}`,
   },
-  description: "Cleanconscience – medvetna val för en renare framtid.",
+  description: siteConfig.description,
+  metadataBase: (() => {
+    if (siteConfig.siteUrl.startsWith("https://TODO")) return undefined;
+    try {
+      return new URL(siteConfig.siteUrl);
+    } catch {
+      return undefined;
+    }
+  })(),
   openGraph: {
-    title: "Cleanconscience",
-    description: "Cleanconscience – medvetna val för en renare framtid.",
-    locale: "sv_SE",
+    title: siteConfig.siteName,
+    description: siteConfig.description,
+    locale: siteConfig.locale.replace("-", "_"),
     type: "website",
   },
   robots: {
