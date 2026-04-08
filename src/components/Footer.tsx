@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { siteConfig } from "../../config/site";
 
-const socialLinks = [
-  { label: "Instagram", href: siteConfig.social.instagram },
-  { label: "TikTok", href: siteConfig.social.tiktok },
-  { label: "YouTube", href: siteConfig.social.youtube },
-  { label: "X", href: siteConfig.social.x },
-  { label: "Facebook", href: siteConfig.social.facebook },
+const allSocialLinks = [
+  { label: "Instagram", key: "instagram" as const },
+  { label: "TikTok", key: "tiktok" as const },
+  { label: "YouTube", key: "youtube" as const },
+  { label: "X", key: "x" as const },
+  { label: "Facebook", key: "facebook" as const },
 ];
+
+/** Filtrera bort sociala länkar som saknar URL */
+const socialLinks = allSocialLinks
+  .map(({ label, key }) => ({ label, href: siteConfig.social[key] }))
+  .filter((link): link is { label: string; href: string } => !!link.href);
 
 const policyLinks = [
   { label: "Integritetspolicy", href: "/integritetspolicy" },
@@ -27,33 +32,35 @@ export default function Footer() {
               href="/"
               className="text-lg font-bold tracking-tight text-gray-900"
             >
-              Cleanconscience
+              {siteConfig.siteName}
             </Link>
             <p className="mt-2 text-sm text-gray-500">
               Medvetna val för en renare framtid.
             </p>
           </div>
 
-          {/* Social */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
-              Sociala medier
-            </h3>
-            <ul className="mt-3 space-y-2">
-              {socialLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-gray-500 transition-colors hover:text-emerald-600"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Social – visas bara om minst en länk är konfigurerad */}
+          {socialLinks.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+                Sociala medier
+              </h3>
+              <ul className="mt-3 space-y-2">
+                {socialLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-gray-500 transition-colors hover:text-emerald-600"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Policies */}
           <div>
@@ -76,7 +83,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-gray-200 pt-6 text-center text-sm text-gray-400">
-          © {new Date().getFullYear()} Cleanconscience. Alla rättigheter
+          © {new Date().getFullYear()} {siteConfig.siteName}. Alla rättigheter
           förbehållna.
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { navItems } from "../../config/navigation";
+import { siteConfig } from "../../config/site";
 
 export default function Navbar() {
   return (
@@ -10,7 +11,7 @@ export default function Navbar() {
           href="/"
           className="text-xl font-bold tracking-tight text-gray-900 hover:text-emerald-600"
         >
-          Cleanconscience
+          {siteConfig.siteName}
         </Link>
 
         {/* Desktop navigation */}

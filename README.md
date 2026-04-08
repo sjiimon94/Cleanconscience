@@ -1,132 +1,166 @@
-You are Claude Code. Build an MVP public website for a Swedish company named “Cleanconscience” (exact casing).
+# Cleanconscience
 
-Mål:
-En snabb, SEO-vänlig webbplats (utan krav på inloggning) som fungerar som nav för:
-- Fysiska produkter (barnböcker, vattenfiltreringssystem, merch) – köp via Shopify
-- Videokurser (idag på Teachable; länka ut i MVP)
-- Podcast (hostas via Spotify; lista avsnitt + avsnittssidor med inbäddad spelare)
-- Blogg (enkelt, kronologiskt)
-- Sociala medier (länkar)
+En snabb, SEO-vänlig webbplats för **Cleanconscience** – medvetna val för en renare framtid.
 
-Krav / prioriteringar:
-- Så billigt som möjligt i drift
-- En enda GitHub-repo
-- Ingen egen inloggning, inga kommentarer, ingen egen betalning i MVP
-- Besökare ska i möjligaste mån “stanna” på huvudwebbplatsen vid shopping
-- Sverige som marknad: frakt endast inom Sverige
-- Språk: svenska (endast svenska UI-texter)
+- **Teknik:** Next.js (App Router) · TypeScript · Tailwind CSS · MDX
+- **Marknad:** Sverige (svenska UI-texter, SEK, frakt inom Sverige)
+- **Drift:** Vercel (eller valfri Node-host)
+- **Ingen inloggning, inga kommentarer, ingen egen betalning** i MVP
 
-Handelsstrategi (för att “stanna på huvudwebbplatsen”):
-- Använd Shopify Buy Button / inbäddning på sidor (kollektioner/produkter) för utvalda produkter.
-- Ha alltid en fallback-länk till full Shopify-butik vid saknad konfiguration.
-- Bygg INTE en full headless Shopify-storefront i MVP.
+---
 
-Teknik:
-- Next.js (App Router) + TypeScript
-- Tailwind CSS
-- MDX för blogginlägg och statiska sidor i repot
-- Deploy-klart för Vercel
-- Minimalt med beroenden.
+## Köra lokalt
 
-Konfiguration:
-Skapa /config/site.ts med:
-- siteName: "Cleanconscience"
-- siteUrl: "https://TODO_DOMAIN"
-- locale: "sv-SE"
-- currency: "SEK"
-- contactEmail: "sjiimon94@gmail.com"
-- social links (valfritt): instagram, tiktok, youtube, x, facebook
-- shopify:
-  - SHOPIFY_DOMAIN (t.ex. dinbutik.myshopify.com)
-  - BUY_BUTTON_FALLBACK_URL (länk till Shopify-butiken)
-  - valfritt: PRODUCT_IDS / COLLECTION_IDS för inbäddningar
-- teachable:
-  - TEACHABLE_SCHOOL_URL + per-kurs URL:er
-- podcast:
-  - PODCAST_RSS_URL (sätts som env var)
+```bash
+# 1. Klona repot
+git clone https://github.com/sjiimon94/Cleanconscience.git
+cd Cleanconscience
 
-Sidor / routes:
-1) "/" (Start)
-   - Hero med kort svensk beskrivning av Cleanconscience
-   - 4 tydliga CTA-kort: Butik, Kurser, Podcast, Blogg
-   - Sektion “Utvalda produkter” med 3–6 Shopify inbäddningar (placeholder IDs ok)
-   - “Senaste podcastavsnittet” (från RSS)
-   - “Senaste blogginläggen” (3 st)
+# 2. Installera beroenden
+npm install
 
-2) "/butik"
-   - Kategorier: Böcker, Vattenfiltrering, Merch
-   - Varje kategori visar:
-     - inbäddad Shopify-kollektion eller produktgrid (om konfigurerat)
-     - annars en snygg placeholder + knapp “Handla i butiken” (länk till Shopify)
-   - Tydlig text: “Frakt inom Sverige”.
+# 3. Skapa en lokal env-fil (committas INTE – finns i .gitignore)
+#    Se "Miljövariabler" nedan för innehåll.
+touch .env.local
 
-3) "/kurser"
-   - Kurskort med svensk text
-   - Minst en kurs: “Barnvaccinationer” (videoserie i ordning)
-   - “Gå till kurs / Köp kurs” knappar länkar till Teachable (MVP)
-   - Förklara att kurserna just nu är hostade externt.
+# 4. Starta utvecklingsservern
+npm run dev
+```
 
-4) "/podcast"
-   - Hämta och parsa RSS från PODCAST_RSS_URL
-   - Lista avsnitt (nyast först): titel, datum, kort beskrivning, länk
-   - Avsnittssidor: "/podcast/[slug]"
-     - Titel, datum, full beskrivning
-     - Inbäddad Spotify-spelare om möjligt, annars HTML5-audio via enclosure URL
-   - Robust felhantering om RSS inte går att hämta.
+Öppna [http://localhost:3000](http://localhost:3000) i webbläsaren.
 
-5) "/blogg"
-   - Lista MDX-inlägg (nyast först)
-   - Inläggssidor: "/blogg/[slug]"
-   - Inga taggar/sök i MVP.
+### Miljövariabler (`.env.local`)
 
-6) "/socialt"
-   - Länkar/knappar till sociala medier från config
-   - Inga API-nycklar krävs.
+> **OBS:** `.env.local` ska **aldrig** committas till repot. Den finns redan i `.gitignore`.
 
-7) "/om" (MDX)
-8) "/kontakt"
-   - Svensk kontakttext
-   - mailto-länk till contactEmail (ingen backend)
-   - Valfritt: enkel formulär-UI som skickar via mailto.
+Skapa filen `.env.local` i projektets rot med följande innehåll (fyll i det som är relevant):
 
-9) Policy-sidor (MDX-utkast, med tydlig disclaimer att detta är malltext som måste granskas):
-   - "/integritetspolicy"
-   - "/villkor"
-   - "/retur"
-   - "/frakt"
-   Anpassa till Sverige (SEK, frakt endast inom Sverige) men håll generiskt.
+```env
+# Podcast – RSS-feed URL (obligatorisk för podcastsidor)
+PODCAST_RSS_URL=https://example.com/feed.xml
 
-Globalt:
-- Responsiv navbar: Start, Butik, Kurser, Podcast, Blogg, Socialt, Om, Kontakt
-- Footer: sociala länkar + policy-länkar + copyright
-- Tillgänglighet: semantisk HTML, bra kontrast, tangentbordsnavigering
-- Design: ren, modern, neutral.
+# Shopify (valfritt – Buy Button inbäddning)
+NEXT_PUBLIC_SHOPIFY_DOMAIN=dinbutik.myshopify.com
+NEXT_PUBLIC_SHOPIFY_FALLBACK_URL=https://dinbutik.myshopify.com
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN=
 
-SEO + teknik:
-- Metadata per sida (svenska titlar och beskrivningar)
-- OpenGraph/Twitter
-- sitemap.xml och robots.txt
-- prestanda-fokus (undvik tung klient-JS)
+# Teachable (valfritt)
+NEXT_PUBLIC_TEACHABLE_URL=https://cleanconscience.teachable.com
 
-Innehåll:
-- MDX frontmatter för blogginlägg: title, date, excerpt
-- Skapa 3 exempel-inlägg på svenska (placeholder-innehåll).
+# Spotify (valfritt – för inbäddad spelare)
+NEXT_PUBLIC_SPOTIFY_SHOW_ID=
+```
 
-Shopify Buy Button:
-- Implementera en komponent <ShopifyBuyButton /> som kan rendera produkt eller kollektion via ID.
-- Ladda Shopify Buy Button script endast en gång (client-side).
-- Fallback om config saknas: visa knapp som länkar till BUY_BUTTON_FALLBACK_URL.
-- Dokumentera i README hur man skaffar Shopify-värden och var de fylls i.
+Om `PODCAST_RSS_URL` saknas fungerar appen ändå – podcastsidorna visar inga avsnitt.
 
-README:
-- hur man kör lokalt
-- hur man sätter PODCAST_RSS_URL
-- hur man lägger till blogginlägg
-- hur man kopplar Shopify inbäddning
-- hur man deployar till Vercel
-- checklista “Fyll i detta” (domän, sociala länkar, Shopify IDs, Teachable-länkar)
+---
 
-Leveranskrav:
-- Kod redo i repot
-- `npm run build` ska fungera
-- Efteråt: skriv en kort sammanfattning + setup-checklista
+## Konfiguration (`config/site.ts`)
+
+All central konfiguration finns i **`config/site.ts`**. Filen exporterar ett typat `SiteConfig`-objekt.
+
+| Fält | Beskrivning |
+|---|---|
+| `siteName` | Webbplatsens namn (`"Cleanconscience"`) |
+| `siteUrl` | Produktions-URL (byt från `https://TODO_DOMAIN`) |
+| `locale` | `"sv-SE"` |
+| `currency` | `"SEK"` |
+| `contactEmail` | Kontakt-e-post |
+| `description` | SEO-beskrivning (svenska) |
+| **`social`** | Sociala medier-URL:er (alla valfria) |
+| **`shopify`** | Shopify-domän, fallback-URL, produkt-/kollektion-ID:n |
+| **`teachable`** | Teachable-skola + kurser (slug, titel, URL m.m.) |
+| **`podcast`** | `rssUrl` hämtas från `process.env.PODCAST_RSS_URL` – hårdkoda **inte** |
+
+### Sociala medier
+
+Öppna `config/site.ts` och fyll i URL:er under `social`:
+
+```ts
+social: {
+  instagram: "https://instagram.com/ditthandle",
+  tiktok: "https://tiktok.com/@ditthandle",
+  // ...lämna undefined för de som inte används
+},
+```
+
+Länkar som är `undefined` döljs automatiskt i footern.
+
+### Shopify
+
+1. Skapa ett Shopify Buy Button i Shopify Admin.
+2. Fyll i `NEXT_PUBLIC_SHOPIFY_DOMAIN` och `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL` i `.env.local` (eller direkt i `config/site.ts`).
+3. Om specifika produkt-/kollektion-ID:n ska inbäddas, lägg till dem i `shopify.productIds` / `shopify.collectionIds` i `config/site.ts`.
+4. **Saknas konfiguration?** Komponenten `<ShopifyBuyButton />` visar automatiskt en fallback-knapp ("Handla i butiken") som länkar till Shopify-butiken.
+
+### Teachable
+
+Redigera `teachable.courses` i `config/site.ts` för att lägga till eller ändra kurser:
+
+```ts
+teachable: {
+  schoolUrl: "https://cleanconscience.teachable.com",
+  courses: [
+    {
+      slug: "barnvaccinationer",
+      title: "Barnvaccinationer",
+      description: "En omfattande videoserie ...",
+      url: "https://cleanconscience.teachable.com/p/barnvaccinationer",
+    },
+  ],
+},
+```
+
+### Podcast (RSS)
+
+Sätt miljövariabeln `PODCAST_RSS_URL` i `.env.local`:
+
+```env
+PODCAST_RSS_URL=https://example.com/feed.xml
+```
+
+Appen hämtar och parsar RSS-feeden server-side. Om variabeln saknas returneras en tom lista (inga krascher).
+
+---
+
+## Bygga och validera
+
+```bash
+npm run build   # Produktionsbygge
+npm run lint     # ESLint
+npm run dev      # Utvecklingsserver
+```
+
+---
+
+## Fyll i detta ✅
+
+Innan lansering – gå igenom checklistan:
+
+- [ ] **Domän** – byt `siteUrl` i `config/site.ts` från `https://TODO_DOMAIN` till din riktiga domän
+- [ ] **Sociala medier** – fyll i faktiska URL:er i `social` (eller ta bort de som inte används)
+- [ ] **Shopify-domän** – sätt `NEXT_PUBLIC_SHOPIFY_DOMAIN` i `.env.local` eller `config/site.ts`
+- [ ] **Shopify fallback-URL** – sätt `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL`
+- [ ] **Shopify produkt-/kollektion-ID:n** – fyll i `shopify.productIds` / `shopify.collectionIds` vid behov
+- [ ] **Shopify Storefront Access Token** – sätt `NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` i `.env.local`
+- [ ] **Teachable-URL:er** – uppdatera `teachable.schoolUrl` och kurser i `config/site.ts`
+- [ ] **Podcast RSS-URL** – sätt `PODCAST_RSS_URL` i `.env.local` (och i Vercel Environment Variables)
+- [ ] **Spotify Show ID** – sätt `NEXT_PUBLIC_SPOTIFY_SHOW_ID` om du vill ha inbäddad Spotify-spelare
+- [ ] **Kontakt-e-post** – verifiera `contactEmail` i `config/site.ts`
+
+---
+
+## Projektstruktur
+
+```
+config/
+  site.ts          # Central konfiguration (typad)
+  navigation.ts    # Navbar-länkar
+src/
+  app/             # Next.js App Router
+  components/      # React-komponenter (Navbar, Footer, m.m.)
+  lib/             # Hjälpfunktioner (podcast, MDX, markdown)
+content/
+  blogg/           # MDX-blogginlägg
+public/            # Statiska filer
+```
