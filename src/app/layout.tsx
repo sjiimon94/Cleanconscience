@@ -10,9 +10,14 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.siteName}`,
   },
   description: siteConfig.description,
-  metadataBase: siteConfig.siteUrl.startsWith("https://TODO")
-    ? undefined
-    : new URL(siteConfig.siteUrl),
+  metadataBase: (() => {
+    if (siteConfig.siteUrl.startsWith("https://TODO")) return undefined;
+    try {
+      return new URL(siteConfig.siteUrl);
+    } catch {
+      return undefined;
+    }
+  })(),
   openGraph: {
     title: siteConfig.siteName,
     description: siteConfig.description,
