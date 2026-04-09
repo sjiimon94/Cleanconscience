@@ -2,7 +2,8 @@
 
 Append-only dated notes, decisions, and rationale.
 If something is not an explicitly approved spec change, it belongs here (not in PRODUCT_SPEC).
-
+Every work session must add a dated entry.
+If no spec/requirements changed, the entry must explicitly say: “Approved spec changes: None”.
 ---
 
 ## 2026-04-09 — Spec + log structure introduced
