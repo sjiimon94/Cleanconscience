@@ -1,5 +1,8 @@
 # Cleanconscience
 
+“For goals/constraints, read docs/PRODUCT_SPEC.md”
+“For recent decisions, read docs/SESSION_LOG.md
+
 En snabb, SEO-vänlig webbplats för **Cleanconscience** – medvetna val för en renare framtid.
 
 - **Teknik:** Next.js (App Router) · TypeScript · Tailwind CSS · MDX
