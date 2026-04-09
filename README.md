@@ -1,7 +1,8 @@
 # Cleanconscience
 
-“For goals/constraints, read docs/PRODUCT_SPEC.md”
-“For recent decisions, read docs/SESSION_LOG.md
+## Project docs
+- Goals/constraints (authoritative): `docs/PRODUCT_SPEC.md`
+- Recent decisions (append-only log): `docs/SESSION_LOG.md`
 
 En snabb, SEO-vänlig webbplats för **Cleanconscience** – medvetna val för en renare framtid.
 
