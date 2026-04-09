@@ -1,7 +1,3 @@
-# Product Specification
-
-Only update the authoritative spec after confirmed decisions; all other notes go to SESSION_LOG with date stamps.
-
 # Cleanconscience — Product Specification (Authoritative)
 
 ## Policy (Authoritative vs Log)
