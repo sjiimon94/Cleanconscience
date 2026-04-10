@@ -4,8 +4,7 @@ import { fetchEpisodes } from "@/lib/podcast";
 import { getSafeBaseUrl } from "@/lib/safe-base-url";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = getSafeBaseUrl();
-  if (!baseUrl) return [];
+  const { url: baseUrl } = getSafeBaseUrl();
 
   const staticRoutes = [
     "/",

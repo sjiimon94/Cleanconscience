@@ -1,21 +1,27 @@
 import { siteConfig } from "../../config/site";
 
+interface BaseUrlResult {
+  /** The resolved base URL (always set when result is returned). */
+  url: string;
+  /** True when the URL comes from a real, configured siteUrl (not a fallback). */
+  isProduction: boolean;
+}
+
 /**
  * Returns a safe base URL for use in sitemap/robots.
  * - Uses siteConfig.siteUrl if it's a valid URL without TODO_DOMAIN.
  * - Falls back to http://localhost:3000 in development.
  * - Falls back to https://example.com otherwise.
- * - Returns null if no safe URL can be determined.
+ * The `isProduction` flag tells callers whether the URL is trustworthy.
  */
-export function getSafeBaseUrl(): string | null {
+export function getSafeBaseUrl(): BaseUrlResult {
   const raw = siteConfig.siteUrl;
 
   if (raw && !raw.includes("TODO_DOMAIN")) {
     try {
       const url = new URL(raw);
       if (url.protocol === "https:" || url.protocol === "http:") {
-        // Remove trailing slash for consistency
-        return url.origin;
+        return { url: url.origin, isProduction: true };
       }
     } catch {
       // invalid URL, fall through
@@ -23,8 +29,8 @@ export function getSafeBaseUrl(): string | null {
   }
 
   if (process.env.NODE_ENV === "development") {
-    return "http://localhost:3000";
+    return { url: "http://localhost:3000", isProduction: false };
   }
 
-  return "https://example.com";
+  return { url: "https://example.com", isProduction: false };
 }
