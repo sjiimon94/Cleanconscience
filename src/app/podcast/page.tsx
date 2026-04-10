@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { fetchEpisodes } from "@/lib/podcast";
+import { siteConfig } from "@/../config/site";
+
+const podcastTitle = siteConfig.podcast.title ?? "Podcast";
+const podcastDescription =
+  siteConfig.podcast.description ??
+  "Samtal om hälsa, medvetenhet och samhälle. Nya avsnitt publiceras löpande.";
+const podcastImage = siteConfig.podcast.image;
 
 export const metadata: Metadata = {
-  title: "Podcast",
-  description:
-    "Lyssna på Cleanconscience-podden – samtal om hälsa, medvetenhet och samhälle.",
+  title: podcastTitle,
+  description: podcastDescription,
 };
 
 export default async function PodcastPage() {
@@ -13,14 +20,29 @@ export default async function PodcastPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-        Podcast
-      </h1>
-      <p className="mt-2 text-gray-600">
-        Samtal om hälsa, medvetenhet och samhälle. Nya avsnitt publiceras
-        löpande.
-      </p>
+      {/* Podcast header – bild + titel + beskrivning */}
+      <section className="flex flex-col items-center gap-8 md:flex-row md:items-start">
+        {podcastImage && (
+          <div className="shrink-0">
+            <Image
+              src={podcastImage}
+              alt={podcastTitle}
+              width={280}
+              height={280}
+              className="rounded-xl shadow-md"
+              priority
+            />
+          </div>
+        )}
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+            {podcastTitle}
+          </h1>
+          <p className="mt-3 max-w-2xl text-gray-600">{podcastDescription}</p>
+        </div>
+      </section>
 
+      {/* Avsnittslista */}
       {episodes.length > 0 ? (
         <ul className="mt-10 divide-y divide-gray-200">
           {episodes.map((ep) => (

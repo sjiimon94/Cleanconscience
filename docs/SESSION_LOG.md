@@ -76,3 +76,20 @@ Implementation notes:
 - npm run lint ✅, npm run build ✅
 
 Approved spec changes: None
+
+## 2026-04-10 — Podcast header: cover image, title & description from config
+
+Summary:
+- Extended `PodcastConfig` in `config/site.ts` with optional `title`, `description`, and `image` fields.
+- Set podcast title to "Ofiltrerat med Johanna och Cecilia", Swedish description, and cover image path `/images/podcast/ofiltrerat-cover.png`.
+- Updated `/podcast` page (`src/app/podcast/page.tsx`) to import `siteConfig` and render a header section with cover image (via `next/image`) on the left and title + description on the right (desktop), stacked on mobile.
+- Existing episode list UI preserved below the new header section.
+- Fallback behaviour: if title/description/image are missing from config, defaults to "Podcast" title and generic Swedish description; image section hidden if not set.
+- Added placeholder PNG at `public/images/podcast/ofiltrerat-cover.png` (to be replaced with real artwork).
+
+Implementation notes:
+- Files changed: `config/site.ts`, `src/app/podcast/page.tsx`, `public/images/podcast/ofiltrerat-cover.png`, `docs/SESSION_LOG.md`
+- No new dependencies added
+- `npm run build` ✅, `npm run lint` ✅
+
+Approved spec changes: None
