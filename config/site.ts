@@ -42,6 +42,12 @@ export interface PodcastConfig {
   /** Hämtas från process.env.PODCAST_RSS_URL – hårdkoda INTE */
   rssUrl: string;
   spotifyShowId?: string;
+  /** Podcastens titel (visas som rubrik på /podcast) */
+  title?: string;
+  /** Kort beskrivning av podcasten (svenska) */
+  description?: string;
+  /** Sökväg till omslagsbild under /public, t.ex. "/images/podcast/cover.png" */
+  image?: string;
 }
 
 export interface SiteConfig {
@@ -116,5 +122,9 @@ export const siteConfig: SiteConfig = {
     rssUrl: process.env.PODCAST_RSS_URL ?? "",
     spotifyShowId:
       process.env.NEXT_PUBLIC_SPOTIFY_SHOW_ID ?? "063j4LSHHIJaPbjSsCElDW",
+    title: "Ofiltrerat med Johanna och Cecilia",
+    description:
+      "Välkommen till Ofiltrerat med Johanna och Cecilia, podden där vi pratar om livet och allt vad det innebär. Här utforskar vi allt från de stora existentiella frågorna till vardagens små prövningar. Vi ifrågasätter rådande normer och öppnar dörrar till nya perspektiv.",
+    image: "/images/podcast/ofiltrerat-cover.png",
   },
 };
