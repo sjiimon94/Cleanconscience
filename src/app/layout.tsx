@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     locale: siteConfig.locale.replace("-", "_"),
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.siteName,
+    description: siteConfig.description,
+  },
   robots: {
     index: true,
     follow: true,

@@ -42,3 +42,19 @@ Implementation notes:
 - Dynamic routes use `generateStaticParams` for SSG
 
 Approved spec changes: None
+
+## 2026-04-10 — P1 SEO + MDX infrastructure
+
+Summary:
+- Wired up @next/mdx properly in next.config.ts using createMDX/withMDX pattern so .md/.mdx files can be used as pages in src/app/ going forward. Added required src/mdx-components.tsx file. Existing blog rendering via content/blogg/ + gray-matter remains unchanged.
+- Created src/app/sitemap.ts — generates /sitemap.xml with 12 static routes + dynamic blog slugs from getAllPosts() + dynamic podcast slugs from fetchEpisodes(). Uses safe base URL helper to avoid broken URLs during dev/early stages.
+- Created src/app/robots.ts — generates /robots.txt allowing all crawling. Includes Sitemap line only when a real production domain is configured (omits it for localhost/example.com/TODO_DOMAIN).
+- Added Twitter card metadata (summary_large_image) to src/app/layout.tsx matching existing OpenGraph values, in Swedish.
+- Created src/lib/safe-base-url.ts helper shared by sitemap and robots: tries siteConfig.siteUrl, falls back to localhost:3000 in dev, https://example.com otherwise, and never outputs TODO_DOMAIN.
+
+Implementation notes:
+- Key files: next.config.ts, src/mdx-components.tsx, src/lib/safe-base-url.ts, src/app/sitemap.ts, src/app/robots.ts, src/app/layout.tsx
+- Build output: 20/20 routes (18 existing + /sitemap.xml + /robots.txt)
+- npm run lint ✅, npm run build ✅
+
+Approved spec changes: None
