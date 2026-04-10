@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { siteConfig } from "../../config/site";
+import { siteConfig } from "../config/site";
 
 declare global {
   interface Window {

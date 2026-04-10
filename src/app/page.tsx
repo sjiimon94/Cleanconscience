@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/mdx";
 import { fetchEpisodes } from "@/lib/podcast";
-import { siteConfig } from "../../config/site";
+import { siteConfig } from "../config/site";
 import ShopifyBuyButton from "@/components/ShopifyBuyButton";
 
 const ctaCards = [

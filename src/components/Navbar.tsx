@@ -1,7 +1,7 @@
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { navItems } from "../../config/navigation";
-import { siteConfig } from "../../config/site";
+import { siteConfig } from "../config/site";
 
 export default function Navbar() {
   return (

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { siteConfig } from "../../config/site";
+import { siteConfig } from "../config/site";
 
 export const metadata: Metadata = {
   title: {

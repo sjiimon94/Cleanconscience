@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchEpisodes } from "@/lib/podcast";
-import { siteConfig } from "@/../config/site";
+import { siteConfig } from "@/config/site";
 
 const podcastTitle = siteConfig.podcast.title ?? "Podcast";
 const podcastDescription =

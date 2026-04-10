@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchEpisodes, getEpisodeBySlug } from "@/lib/podcast";
-import { siteConfig } from "../../../../config/site";
+import { siteConfig } from "../../../config/site";
 
 interface PodcastEpisodePageProps {
   params: Promise<{ slug: string }>;

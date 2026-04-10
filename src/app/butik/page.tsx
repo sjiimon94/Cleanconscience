@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ShopifyBuyButton from "@/components/ShopifyBuyButton";
-import { siteConfig } from "../../../config/site";
+import { siteConfig } from "../../config/site";
 
 export const metadata: Metadata = {
   title: "Butik",

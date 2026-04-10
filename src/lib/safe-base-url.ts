@@ -1,4 +1,4 @@
-import { siteConfig } from "../../config/site";
+import { siteConfig } from "../config/site";
 
 interface BaseUrlResult {
   /** The resolved base URL (always set when result is returned). */
