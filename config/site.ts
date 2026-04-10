@@ -72,11 +72,11 @@ export const siteConfig: SiteConfig = {
 
   /* Sociala medier – fyll i de som är aktuella, lämna resten tomma */
   social: {
-    instagram: undefined,
+    instagram: "https://www.instagram.com/ceciliastrandevall/",
     tiktok: undefined,
-    youtube: undefined,
+    youtube: "https://www.youtube.com/@ceciliaberg2701?app=desktop",
     x: undefined,
-    facebook: undefined,
+    facebook: "https://www.facebook.com/cecilia.berg.3/",
   },
 
   /* Shopify Buy Button / inbäddning */
@@ -114,6 +114,7 @@ export const siteConfig: SiteConfig = {
   /* Podcast – RSS-URL:en MÅSTE sättas via env var PODCAST_RSS_URL */
   podcast: {
     rssUrl: process.env.PODCAST_RSS_URL ?? "",
-    spotifyShowId: process.env.NEXT_PUBLIC_SPOTIFY_SHOW_ID ?? "",
+    spotifyShowId:
+      process.env.NEXT_PUBLIC_SPOTIFY_SHOW_ID ?? "063j4LSHHIJaPbjSsCElDW",
   },
 };
