@@ -42,3 +42,24 @@ Implementation notes:
 - Dynamic routes use `generateStaticParams` for SSG
 
 Approved spec changes: None
+
+## 2026-04-10 — Real social links, "Fler plattformar", Spotify show ID, podcast RSS docs
+
+Summary:
+- Updated primary social links in `config/site.ts`:
+  - Instagram → https://www.instagram.com/ceciliastrandevall/
+  - YouTube → https://www.youtube.com/@ceciliaberg2701?app=desktop
+  - Facebook → https://www.facebook.com/cecilia.berg.3/
+- These links now appear automatically in the footer and on `/socialt`.
+- Added a "Fler plattformar" section on `/socialt` only (not in footer):
+  - Ecofilter of Sweden (Instagram) → https://www.instagram.com/ecofilterofsweden/
+  - Rumble → https://rumble.com/user/ceciliastrandevall?e9s=src_v1_cbl
+- Set Spotify show ID default to `063j4LSHHIJaPbjSsCElDW` in `config/site.ts` (`podcast.spotifyShowId`). The env var `NEXT_PUBLIC_SPOTIFY_SHOW_ID` still overrides if set.
+- Updated `README.md` to document the correct `PODCAST_RSS_URL` value: `https://feed.podbean.com/Ofiltreratmjohannaocecilia/feed.xml`
+
+Implementation notes:
+- Files changed: `config/site.ts`, `src/app/socialt/page.tsx`, `README.md`, `docs/SESSION_LOG.md`
+- No new dependencies added
+- All UI text remains Swedish
+
+Approved spec changes: None

@@ -63,6 +63,39 @@ export default function SocialtPage() {
           </p>
         </div>
       )}
+
+      {/* Fler plattformar – visas enbart på /socialt */}
+      <h2 className="mt-14 text-2xl font-bold tracking-tight text-gray-900">
+        Fler plattformar
+      </h2>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <a
+          href="https://www.instagram.com/ecofilterofsweden/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+        >
+          <span className="text-2xl">📸</span>
+          <div>
+            <p className="font-semibold text-gray-900">
+              Ecofilter of Sweden (Instagram)
+            </p>
+            <p className="text-sm text-emerald-600">Följ oss →</p>
+          </div>
+        </a>
+        <a
+          href="https://rumble.com/user/ceciliastrandevall?e9s=src_v1_cbl"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+        >
+          <span className="text-2xl">🎬</span>
+          <div>
+            <p className="font-semibold text-gray-900">Rumble</p>
+            <p className="text-sm text-emerald-600">Följ oss →</p>
+          </div>
+        </a>
+      </div>
     </div>
   );
 }

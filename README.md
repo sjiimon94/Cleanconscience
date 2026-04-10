@@ -41,7 +41,7 @@ Skapa filen `.env.local` i projektets rot med följande innehåll (fyll i det so
 
 ```env
 # Podcast – RSS-feed URL (obligatorisk för podcastsidor)
-PODCAST_RSS_URL=https://example.com/feed.xml
+PODCAST_RSS_URL=https://feed.podbean.com/Ofiltreratmjohannaocecilia/feed.xml
 
 # Shopify (valfritt – Buy Button inbäddning)
 NEXT_PUBLIC_SHOPIFY_DOMAIN=dinbutik.myshopify.com
@@ -120,7 +120,7 @@ teachable: {
 Sätt miljövariabeln `PODCAST_RSS_URL` i `.env.local`:
 
 ```env
-PODCAST_RSS_URL=https://example.com/feed.xml
+PODCAST_RSS_URL=https://feed.podbean.com/Ofiltreratmjohannaocecilia/feed.xml
 ```
 
 Appen hämtar och parsar RSS-feeden server-side. Om variabeln saknas returneras en tom lista (inga krascher).
