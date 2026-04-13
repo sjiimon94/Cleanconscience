@@ -61,7 +61,7 @@ Om `PODCAST_RSS_URL` saknas fungerar appen ändå – podcastsidorna visar inga 
 
 ## Konfiguration (`config/site.ts`)
 
-All central konfiguration finns i **`config/site.ts`**. Filen exporterar ett typat `SiteConfig`-objekt.
+All central konfiguration finns i **`src/config/site.ts`**. Filen exporterar ett typat `SiteConfig`-objekt.
 
 | Fält | Beskrivning |
 |---|---|
@@ -182,13 +182,14 @@ Innan lansering – gå igenom checklistan:
 ## Projektstruktur
 
 ```
-config/
-  site.ts          # Central konfiguration (typad)
-  navigation.ts    # Navbar-länkar
+
 src/
   app/             # Next.js App Router
   components/      # React-komponenter (Navbar, Footer, m.m.)
   lib/             # Hjälpfunktioner (podcast, MDX, markdown)
+  config/
+    site.ts          # Central konfiguration (typad)
+    navigation.ts    # Navbar-länkar
 content/
   blogg/           # MDX-blogginlägg
 public/            # Statiska filer
