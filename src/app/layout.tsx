@@ -23,11 +23,20 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     locale: siteConfig.locale.replace("-", "_"),
     type: "website",
+    images: [
+      {
+        url: "/images/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Cleanconscience – medvetna val för en renare framtid",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.siteName,
     description: siteConfig.description,
+    images: ["/images/og-default.png"],
   },
   robots: {
     index: true,
