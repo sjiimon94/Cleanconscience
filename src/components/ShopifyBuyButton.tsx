@@ -57,10 +57,14 @@ export default function ShopifyBuyButton({
   const resolvedFallbackUrl =
     fallbackUrl || siteConfig.shopify?.buyButtonFallbackUrl || "#";
 
+  /* Treat well-known placeholder domains as "not configured" */
+  const isPlaceholderDomain =
+    !shopifyDomain || shopifyDomain === "dinbutik.myshopify.com";
+
   const hasId = !!(productId || collectionId);
 
   useEffect(() => {
-    if (!hasId || !shopifyDomain || initializedRef.current) return;
+    if (!hasId || isPlaceholderDomain || initializedRef.current) return;
 
     const sdkUrl =
       "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
@@ -101,9 +105,9 @@ export default function ShopifyBuyButton({
       .catch((err) => {
         console.error("Shopify Buy Button SDK failed to load:", err);
       });
-  }, [hasId, shopifyDomain, productId, collectionId]);
+  }, [hasId, isPlaceholderDomain, shopifyDomain, productId, collectionId]);
 
-  if (hasId && shopifyDomain) {
+  if (hasId && !isPlaceholderDomain) {
     return <div ref={containerRef} />;
   }
 

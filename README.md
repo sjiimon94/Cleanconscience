@@ -92,10 +92,35 @@ Länkar som är `undefined` döljs automatiskt i footern.
 
 ### Shopify
 
-1. Skapa ett Shopify Buy Button i Shopify Admin.
-2. Fyll i `NEXT_PUBLIC_SHOPIFY_DOMAIN` och `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL` i `.env.local` (eller direkt i `config/site.ts`).
-3. Om specifika produkt-/kollektion-ID:n ska inbäddas, lägg till dem i `shopify.productIds` / `shopify.collectionIds` i `config/site.ts`.
-4. **Saknas konfiguration?** Komponenten `<ShopifyBuyButton />` visar automatiskt en fallback-knapp ("Handla i butiken") som länkar till Shopify-butiken.
+#### Steg-för-steg: hitta dina Shopify-värden
+
+1. **Shopify-domän** (`NEXT_PUBLIC_SHOPIFY_DOMAIN`)
+   - Logga in på [Shopify Admin](https://admin.shopify.com/).
+   - Din domän syns i adressfältet: `https://<dinbutik>.myshopify.com/admin` → värdet är `<dinbutik>.myshopify.com`.
+   - Sätt variabeln i `.env.local` eller direkt i `config/site.ts` under `shopify.domain`.
+
+2. **Fallback-URL** (`NEXT_PUBLIC_SHOPIFY_FALLBACK_URL`)
+   - Samma bas-URL som ovan, t.ex. `https://dinbutik.myshopify.com`.
+   - Används som länk i fallback-knappen om Buy Button inte kan visas.
+
+3. **Storefront Access Token** (`NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN`)
+   - I Shopify Admin, gå till **Inställningar → Appar och försäljningskanaler → Utveckla appar** (eller **Headless**-kanalen).
+   - Skapa en app (eller öppna en befintlig) → **API-uppgifter** → kopiera **Storefront API access token**.
+   - Klistra in som `NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` i `.env.local`.
+
+4. **Produkt-ID:n** (`shopify.productIds` i `config/site.ts`)
+   - Öppna en produkt i Shopify Admin. I URL:en ser du `/products/<id>` – detta `<id>` är ett nummer (t.ex. `7982345678901`).
+   - Alternativt: använd Shopify GraphQL-utforskaren (Admin → **Appar → Headless → Storefront API playground**) med frågan:
+     ```graphql
+     { products(first: 10) { edges { node { id title } } } }
+     ```
+   - Lägg till ID:n som strängar i `shopify.productIds`-arrayen.
+
+5. **Kollektion-ID:n** (`shopify.collectionIds` i `config/site.ts`)
+   - Öppna en kollektion i Shopify Admin → `/collections/<id>`.
+   - Fyll i under `shopify.collectionIds.bocker`, `.vattenfiltrering`, `.merch`.
+
+6. **Saknas konfiguration?** Komponenten `<ShopifyBuyButton />` visar automatiskt en fallback-knapp ("Handla i butiken") som länkar till fallback-URL:en. Ingen konfiguration krävs för att appen ska fungera.
 
 ### Teachable
 

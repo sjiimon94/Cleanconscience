@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/mdx";
 import { fetchEpisodes } from "@/lib/podcast";
 import { siteConfig } from "../config/site";
 import ShopifyBuyButton from "@/components/ShopifyBuyButton";
+
+export const metadata: Metadata = {
+  title: "Start",
+  description: siteConfig.description,
+};
 
 const ctaCards = [
   {

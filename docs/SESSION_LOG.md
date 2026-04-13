@@ -93,3 +93,22 @@ Implementation notes:
 - `npm run build` ✅, `npm run lint` ✅
 
 Approved spec changes: None
+
+## 2026-04-13 — P2: Shopify docs, OG/brand assets, metadata review, placeholder-domain guard
+
+Summary:
+- Expanded Shopify "how to obtain values" documentation in `README.md` with step-by-step instructions for domain, Storefront Access Token, product IDs, and collection IDs (per PRODUCT_SPEC §8).
+- Created default OG sharing image `public/images/og-default.png` (1200×630, emerald branding with site name + tagline).
+- Wired `openGraph.images` and `twitter.images` in `src/app/layout.tsx` pointing to the new OG image — all pages now inherit a default share image.
+- Created placeholder course image `public/images/courses/barnvaccinationer.jpg` to fix the missing asset referenced by `teachable.courses[0].image` in `src/config/site.ts` → rendered on `/kurser`.
+- Added explicit `metadata` export to `src/app/page.tsx` (homepage) — the only route that was missing its own metadata. Title set to "Start" (Swedish).
+- Metadata audit across all 14 route pages + layout: confirmed all title/description strings are Swedish (`sv-SE`). Dynamic routes (blog/podcast slugs) pull Swedish content; fallbacks ("Inlägg saknas", "Avsnitt saknas") are also Swedish.
+- Added placeholder-domain guard to `ShopifyBuyButton`: when `shopifyDomain` is still the placeholder `dinbutik.myshopify.com`, the component skips SDK loading and shows the fallback link instead of making broken API calls.
+
+Implementation notes:
+- Files changed: `README.md`, `src/app/layout.tsx`, `src/app/page.tsx`, `src/components/ShopifyBuyButton.tsx`, `docs/SESSION_LOG.md`
+- Files created: `public/images/og-default.png`, `public/images/courses/barnvaccinationer.jpg`
+- No new dependencies added
+- `npm run lint` ✅, `npm run build` ✅ (20/20 routes)
+
+Approved spec changes: None
