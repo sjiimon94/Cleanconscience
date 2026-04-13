@@ -59,7 +59,7 @@ Om `PODCAST_RSS_URL` saknas fungerar appen ändå – podcastsidorna visar inga 
 
 ---
 
-## Konfiguration (`config/site.ts`)
+## Konfiguration (`src/config/site.ts`)
 
 All central konfiguration finns i **`src/config/site.ts`**. Filen exporterar ett typat `SiteConfig`-objekt.
 
@@ -78,7 +78,7 @@ All central konfiguration finns i **`src/config/site.ts`**. Filen exporterar ett
 
 ### Sociala medier
 
-Öppna `config/site.ts` och fyll i URL:er under `social`:
+Öppna `src/config/site.ts` och fyll i URL:er under `social`:
 
 ```ts
 social: {
@@ -97,7 +97,7 @@ Länkar som är `undefined` döljs automatiskt i footern.
 1. **Shopify-domän** (`NEXT_PUBLIC_SHOPIFY_DOMAIN`)
    - Logga in på [Shopify Admin](https://admin.shopify.com/).
    - Din domän syns i adressfältet: `https://<dinbutik>.myshopify.com/admin` → värdet är `<dinbutik>.myshopify.com`.
-   - Sätt variabeln i `.env.local` eller direkt i `config/site.ts` under `shopify.domain`.
+   - Sätt variabeln i `.env.local` eller direkt i `src/config/site.ts` under `shopify.domain`.
 
 2. **Fallback-URL** (`NEXT_PUBLIC_SHOPIFY_FALLBACK_URL`)
    - Samma bas-URL som ovan, t.ex. `https://dinbutik.myshopify.com`.
@@ -124,7 +124,7 @@ Länkar som är `undefined` döljs automatiskt i footern.
 
 ### Teachable
 
-Redigera `teachable.courses` i `config/site.ts` för att lägga till eller ändra kurser:
+Redigera `teachable.courses` i `src/config/site.ts` för att lägga till eller ändra kurser:
 
 ```ts
 teachable: {
@@ -166,16 +166,16 @@ npm run dev      # Utvecklingsserver
 
 Innan lansering – gå igenom checklistan:
 
-- [ ] **Domän** – byt `siteUrl` i `config/site.ts` från `https://TODO_DOMAIN` till din riktiga domän
+- [ ] **Domän** – byt `siteUrl` i `src/config/site.ts` från `https://TODO_DOMAIN` till din riktiga domän
 - [ ] **Sociala medier** – fyll i faktiska URL:er i `social` (eller ta bort de som inte används)
-- [ ] **Shopify-domän** – sätt `NEXT_PUBLIC_SHOPIFY_DOMAIN` i `.env.local` eller `config/site.ts`
+- [ ] **Shopify-domän** – sätt `NEXT_PUBLIC_SHOPIFY_DOMAIN` i `.env.local` eller `src/config/site.ts`
 - [ ] **Shopify fallback-URL** – sätt `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL`
 - [ ] **Shopify produkt-/kollektion-ID:n** – fyll i `shopify.productIds` / `shopify.collectionIds` vid behov
 - [ ] **Shopify Storefront Access Token** – sätt `NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` i `.env.local`
-- [ ] **Teachable-URL:er** – uppdatera `teachable.schoolUrl` och kurser i `config/site.ts`
+- [ ] **Teachable-URL:er** – uppdatera `teachable.schoolUrl` och kurser i `src/config/site.ts`
 - [ ] **Podcast RSS-URL** – sätt `PODCAST_RSS_URL` i `.env.local` (och i Vercel Environment Variables)
 - [ ] **Spotify Show ID** – sätt `NEXT_PUBLIC_SPOTIFY_SHOW_ID` om du vill ha inbäddad Spotify-spelare
-- [ ] **Kontakt-e-post** – verifiera `contactEmail` i `config/site.ts`
+- [ ] **Kontakt-e-post** – verifiera `contactEmail` i `src/config/site.ts`
 
 ---
 
