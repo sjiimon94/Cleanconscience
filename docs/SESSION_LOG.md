@@ -112,3 +112,7 @@ Implementation notes:
 - `npm run lint` ✅, `npm run build` ✅ (20/20 routes)
 
 Approved spec changes: None
+
+## 2026-04-13 — Redefined config
+Summary: “Dokumentation uppdaterad: korrekt config-sökväg är src/config/site.ts.”
+Approved spec changes: None.
