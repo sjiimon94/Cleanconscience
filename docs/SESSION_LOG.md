@@ -116,3 +116,19 @@ Approved spec changes: None
 ## 2026-04-13 — Redefined config
 Summary: “Dokumentation uppdaterad: korrekt config-sökväg är src/config/site.ts.”
 Approved spec changes: None.
+
+## 2026-04-16 — Theme update, Om/Kontakt copy + profile image, Twitter/X removal
+
+Summary:
+- **Theme**: Implemented "Nordisk natur minimalism + soft-tech pastels" theme with custom Tailwind v4 `@theme` tokens (warm-white, sand, misty-blue, sage, ink, clay). Updated Navbar, Footer, MobileMenu, homepage hero/CTA cards/sections, Om page, and Kontakt page to use the new palette. Rounded corners (xl/2xl), soft borders, subtle shadows, and warm tones throughout. CTA highlights use warm clay/orange accent.
+- **Om page**: Rewrote with personal, warm Swedish copy about Cecilia Strandevall. Added profile image (`public/images/profilbild.jpeg`) using `next/image` with two-column desktop layout (image + text) and stacked mobile layout. Sections: intro, family/motivation, tone statement, daily life, what you'll find, Studio Cecilia, compass values, closing CTA.
+- **Kontakt page**: Rewrote with provided Swedish copy including clear email display (`cecilia@strandevall.se`), seminar/workshop booking section with formats and details to include, and response time note.
+- **Twitter/X removal**: Removed `x` from `SocialLinks` interface and `siteConfig.social` in `src/config/site.ts`. Removed X entry from Footer (`allSocialLinks`) and Socialt page (`allSocialPlatforms`). Deleted entire `twitter: { ... }` metadata block from `src/app/layout.tsx`.
+
+Implementation notes:
+- Files changed: `src/app/globals.css`, `src/app/layout.tsx`, `src/app/page.tsx`, `src/app/om/page.tsx`, `src/app/kontakt/page.tsx`, `src/app/socialt/page.tsx`, `src/config/site.ts`, `src/components/Navbar.tsx`, `src/components/Footer.tsx`, `src/components/MobileMenu.tsx`, `docs/SESSION_LOG.md`
+- Files created: `public/images/profilbild.jpeg` (copy of existing Profilbild.jpg)
+- No new dependencies added
+- `npm run lint` ✅, `npm run build` ✅ (20/20 routes)
+
+Approved spec changes: None

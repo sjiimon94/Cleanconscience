@@ -32,12 +32,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.siteName,
-    description: siteConfig.description,
-    images: ["/images/og-default.png"],
-  },
   robots: {
     index: true,
     follow: true,
@@ -51,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sv" className="h-full antialiased">
-      <body className="flex min-h-full flex-col font-sans">
+      <body className="flex min-h-full flex-col bg-warm-white font-sans text-ink">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

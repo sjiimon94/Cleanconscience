@@ -6,7 +6,6 @@ export interface SocialLinks {
   instagram?: string;
   tiktok?: string;
   youtube?: string;
-  x?: string;
   facebook?: string;
 }
 
@@ -81,7 +80,6 @@ export const siteConfig: SiteConfig = {
     instagram: "https://www.instagram.com/ceciliastrandevall/",
     tiktok: undefined,
     youtube: "https://www.youtube.com/@ceciliaberg2701?app=desktop",
-    x: undefined,
     facebook: "https://www.facebook.com/cecilia.berg.3/",
   },
 

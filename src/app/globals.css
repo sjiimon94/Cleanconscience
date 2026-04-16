@@ -2,4 +2,20 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Nordisk natur minimalism — warm, cozy palette */
+  --color-warm-white: #FAF8F5;
+  --color-sand: #F0E8DC;
+  --color-sand-dark: #D9CCBA;
+  --color-misty-blue: #E4EDF2;
+  --color-sage: #7A9E7E;
+  --color-sage-dark: #5F8163;
+  --color-sage-light: #EAF1EB;
+  --color-ink: #2C3E2D;
+  --color-ink-light: #4A5E4B;
+  --color-ink-muted: #6B7C6C;
+  --color-clay: #C8835F;
+  --color-clay-dark: #B06F4B;
+  --color-clay-light: #F5E6DC;
+  --color-border-soft: #E2DDD6;
 }
