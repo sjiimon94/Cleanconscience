@@ -86,7 +86,7 @@ export default async function Home() {
           <RevealOnScroll delay={300}>
             <Link
               href="/butik"
-              className="mt-10 inline-block rounded-full bg-clay px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-clay-dark hover:shadow-xl hover:-translate-y-0.5"
+              className="mt-10 inline-block rounded-full bg-clay px-8 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-clay-dark hover:shadow-xl hover:-translate-y-0.5 focus:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-clay-light"
             >
               Utforska butiken
             </Link>

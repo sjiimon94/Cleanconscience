@@ -109,7 +109,8 @@ export const siteConfig: SiteConfig = {
         title: "Barnvaccinationer",
         description:
           "En omfattande videoserie om barnvaccinationer – fakta, forskning och föräldraperspektiv.",
-        url: "https://cecilia-strandevall-s-school.teachable.com/l/products?sortKey=name&sortDirection=asc&page=1",
+        url: process.env.NEXT_PUBLIC_TEACHABLE_URL ??
+          "https://cecilia-strandevall-s-school.teachable.com/l/products?sortKey=name&sortDirection=asc&page=1",
         image: "/images/courses/barnvaccinationer.jpg",
       },
     ],

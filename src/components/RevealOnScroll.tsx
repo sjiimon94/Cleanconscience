@@ -31,24 +31,28 @@ export default function RevealOnScroll({
       return;
     }
 
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const timeout = setTimeout(() => {
+          timeoutId = setTimeout(() => {
             el.style.transition =
               "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)";
             el.style.opacity = "1";
             el.style.transform = "translateY(0)";
           }, delay);
           observer.unobserve(el);
-          return () => clearTimeout(timeout);
         }
       },
       { threshold: 0.12 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
   }, [delay]);
 
   return (

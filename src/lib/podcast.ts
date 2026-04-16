@@ -73,7 +73,7 @@ export async function fetchEpisodes(): Promise<PodcastEpisode[]> {
 
     // Sort by date descending so the newest episode comes first
     episodes.sort((a, b) => {
-      if (a.date && b.date) return b.date.localeCompare(a.date);
+      if (a.date && b.date) return b.date > a.date ? 1 : b.date < a.date ? -1 : 0;
       if (a.date) return -1;
       if (b.date) return 1;
       return 0;
