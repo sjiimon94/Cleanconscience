@@ -13,7 +13,7 @@ export default function MobileMenu() {
         onClick={() => setOpen(!open)}
         aria-label={open ? "Stäng meny" : "Öppna meny"}
         aria-expanded={open}
-        className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
+        className="inline-flex items-center justify-center rounded-lg p-2 text-ink-light hover:bg-sage-light hover:text-ink focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sage"
       >
         {open ? (
           <svg
@@ -47,14 +47,14 @@ export default function MobileMenu() {
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-full z-50 border-b border-gray-200 bg-white shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-50 border-b border-border-soft bg-warm-white shadow-lg">
           <nav className="space-y-1 px-4 pb-4 pt-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-emerald-600"
+                className="block rounded-lg px-3 py-2 text-base font-medium text-ink-light hover:bg-sage-light hover:text-sage-dark"
               >
                 {item.label}
               </Link>

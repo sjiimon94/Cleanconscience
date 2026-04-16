@@ -10,7 +10,6 @@ const allSocialPlatforms = [
   { label: "Instagram", key: "instagram" as const, icon: "📸" },
   { label: "TikTok", key: "tiktok" as const, icon: "🎵" },
   { label: "YouTube", key: "youtube" as const, icon: "▶️" },
-  { label: "X", key: "x" as const, icon: "💬" },
   { label: "Facebook", key: "facebook" as const, icon: "👥" },
 ];
 

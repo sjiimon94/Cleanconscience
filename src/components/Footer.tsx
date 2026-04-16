@@ -5,7 +5,6 @@ const allSocialLinks = [
   { label: "Instagram", key: "instagram" as const },
   { label: "TikTok", key: "tiktok" as const },
   { label: "YouTube", key: "youtube" as const },
-  { label: "X", key: "x" as const },
   { label: "Facebook", key: "facebook" as const },
 ];
 
@@ -23,18 +22,18 @@ const policyLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-50">
+    <footer className="border-t border-border-soft bg-sand">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
           <div>
             <Link
               href="/"
-              className="text-lg font-bold tracking-tight text-gray-900"
+              className="text-lg font-bold tracking-tight text-ink"
             >
               {siteConfig.siteName}
             </Link>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-ink-muted">
               Medvetna val för en renare framtid.
             </p>
           </div>
@@ -42,7 +41,7 @@ export default function Footer() {
           {/* Social – visas bara om minst en länk är konfigurerad */}
           {socialLinks.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-ink">
                 Sociala medier
               </h3>
               <ul className="mt-3 space-y-2">
@@ -52,7 +51,7 @@ export default function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-gray-500 transition-colors hover:text-emerald-600"
+                      className="text-sm text-ink-muted transition-colors hover:text-sage-dark"
                     >
                       {link.label}
                     </a>
@@ -64,7 +63,7 @@ export default function Footer() {
 
           {/* Policies */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-ink">
               Information
             </h3>
             <ul className="mt-3 space-y-2">
@@ -72,7 +71,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-500 transition-colors hover:text-emerald-600"
+                    className="text-sm text-ink-muted transition-colors hover:text-sage-dark"
                   >
                     {link.label}
                   </Link>
@@ -82,7 +81,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-gray-200 pt-6 text-center text-sm text-gray-400">
+        <div className="mt-10 border-t border-border-soft pt-6 text-center text-sm text-ink-muted">
           © {new Date().getFullYear()} {siteConfig.siteName}. Alla rättigheter
           förbehållna.
         </div>
