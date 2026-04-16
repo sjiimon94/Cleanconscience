@@ -132,3 +132,21 @@ Implementation notes:
 - `npm run lint` ✅, `npm run build` ✅ (20/20 routes)
 
 Approved spec changes: None
+
+## 2026-04-16 — Homepage visual upgrade, latest episode fix, courses URL, Om bullet, animations
+
+Summary:
+- **Latest episode fix**: Updated `src/lib/podcast.ts` to sort episodes by `date` descending after parsing the RSS feed, so "Senaste avsnittet" on the homepage now truly shows the newest episode.
+- **Courses URL + rename**: Changed all course URLs from `cleanconscience.teachable.com/p/barnvaccinationer` to `https://cecilia-strandevall-s-school.teachable.com/l/products?sortKey=name&sortDirection=asc&page=1`. Renamed "Våra kurser" / "Kurser" to "Mina kurser" on the homepage CTA, kurser page heading, and page metadata.
+- **Om page bullet**: Replaced "Böcker och material – berättelser och innehåll som väcker tankar…" with "Barnböcker och merch – barnböcker som väcker samtal, och produkter med min logga som skapar samhörighet och gör det möjligt att stötta mitt arbete."
+- **Theme & visual upgrade**: Redesigned homepage hero with deep forest gradient, organic radial blob shapes, and warm clay accents. Added `WaveDivider` component (SVG curves) between all homepage sections for flowing transitions. Updated globals.css with new theme tokens (`deep-forest`, `ocean-dark`), `.card-hover` transitions, and `prefers-reduced-motion` guards. Footer now uses deep-forest dark background with warm-white text. Navbar adds shadow, glass-blur, and focus ring for accessibility.
+- **Animations**: Created `RevealOnScroll` client component using IntersectionObserver with fade-in + slide-up animation. Applied to homepage hero, CTA cards (staggered), product cards, podcast section, and blog cards. All animations respect `prefers-reduced-motion`.
+- **Twitter/X removal**: Verified still fully removed (previous session). No X references in config, footer, socialt, or layout.
+
+Implementation notes:
+- Files changed: `src/app/page.tsx`, `src/app/globals.css`, `src/app/om/page.tsx`, `src/app/kurser/page.tsx`, `src/config/site.ts`, `src/lib/podcast.ts`, `src/components/Navbar.tsx`, `src/components/Footer.tsx`, `docs/SESSION_LOG.md`
+- Files created: `src/components/RevealOnScroll.tsx`, `src/components/WaveDivider.tsx`
+- No new dependencies added
+- `npm run lint` ✅, `npm run build` ✅ (20/20 routes)
+
+Approved spec changes: None

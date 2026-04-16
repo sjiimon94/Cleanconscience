@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { siteConfig } from "../../config/site";
 
 export const metadata: Metadata = {
-  title: "Kurser",
+  title: "Mina kurser",
   description:
     "Videokurser från Cleanconscience – kunskap för medvetna beslut.",
 };
@@ -12,11 +12,11 @@ export default function KurserPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-        Kurser
+      <h1 className="text-3xl font-bold tracking-tight text-ink">
+        Mina kurser
       </h1>
-      <p className="mt-2 text-gray-600">
-        Våra videokurser finns på vår kursplattform. Klicka på en kurs för att
+      <p className="mt-2 text-ink-muted">
+        Mina videokurser finns på min kursplattform. Klicka på en kurs för att
         läsa mer och anmäla dig.
       </p>
 
@@ -28,10 +28,10 @@ export default function KurserPage() {
               href={course.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="group flex flex-col rounded-2xl border border-border-soft bg-white p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
             >
               {course.image && (
-                <div className="mb-4 h-40 w-full overflow-hidden rounded-lg bg-gray-100">
+                <div className="mb-4 h-40 w-full overflow-hidden rounded-xl bg-sand">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={course.image}
@@ -40,31 +40,31 @@ export default function KurserPage() {
                   />
                 </div>
               )}
-              <h2 className="text-lg font-semibold text-gray-900 group-hover:text-emerald-600">
+              <h2 className="text-lg font-semibold text-ink group-hover:text-sage-dark">
                 {course.title}
               </h2>
-              <p className="mt-2 flex-1 text-sm text-gray-500">
+              <p className="mt-2 flex-1 text-sm text-ink-muted">
                 {course.description}
               </p>
-              <span className="mt-4 inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
+              <span className="mt-4 inline-flex items-center text-sm font-medium text-clay group-hover:text-clay-dark">
                 Gå till kursen →
               </span>
             </a>
           ))}
         </div>
       ) : (
-        <p className="mt-8 text-sm text-gray-500">
+        <p className="mt-8 text-sm text-ink-muted">
           Inga kurser tillgängliga just nu. Kom tillbaka snart!
         </p>
       )}
 
-      <p className="mt-12 text-sm text-gray-400">
-        Kurserna levereras via vår externa kursplattform{" "}
+      <p className="mt-12 text-sm text-ink-muted">
+        Kurserna levereras via min externa kursplattform{" "}
         <a
           href={schoolUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-emerald-600 hover:text-emerald-700"
+          className="text-clay hover:text-clay-dark"
         >
           Teachable
         </a>

@@ -18,4 +18,42 @@
   --color-clay-dark: #B06F4B;
   --color-clay-light: #F5E6DC;
   --color-border-soft: #E2DDD6;
+  --color-deep-forest: #1A2E1C;
+  --color-ocean-dark: #2A3D4F;
+}
+
+/* Parallax hero background */
+.parallax-hero {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-hero {
+    background-attachment: scroll;
+  }
+}
+
+/* Organic divider SVG */
+.section-wave {
+  display: block;
+  width: 100%;
+  height: auto;
+  line-height: 0;
+}
+
+/* Subtle card hover lift */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(44,62,45,0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover:hover {
+    transform: none;
+  }
 }

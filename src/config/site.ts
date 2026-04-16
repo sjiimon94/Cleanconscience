@@ -102,14 +102,15 @@ export const siteConfig: SiteConfig = {
   teachable: {
     schoolUrl:
       process.env.NEXT_PUBLIC_TEACHABLE_URL ??
-      "https://cleanconscience.teachable.com",
+      "https://cecilia-strandevall-s-school.teachable.com/l/products?sortKey=name&sortDirection=asc&page=1",
     courses: [
       {
         slug: "barnvaccinationer",
         title: "Barnvaccinationer",
         description:
           "En omfattande videoserie om barnvaccinationer – fakta, forskning och föräldraperspektiv.",
-        url: "https://cleanconscience.teachable.com/p/barnvaccinationer",
+        url: process.env.NEXT_PUBLIC_TEACHABLE_URL ??
+          "https://cecilia-strandevall-s-school.teachable.com/l/products?sortKey=name&sortDirection=asc&page=1",
         image: "/images/courses/barnvaccinationer.jpg",
       },
     ],

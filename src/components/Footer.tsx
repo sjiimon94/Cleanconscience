@@ -22,18 +22,18 @@ const policyLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border-soft bg-sand">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <footer className="border-t border-border-soft bg-deep-forest text-warm-white/80">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
           <div>
             <Link
               href="/"
-              className="text-lg font-bold tracking-tight text-ink"
+              className="text-lg font-bold tracking-tight text-warm-white"
             >
               {siteConfig.siteName}
             </Link>
-            <p className="mt-2 text-sm text-ink-muted">
+            <p className="mt-2 text-sm text-warm-white/60">
               Medvetna val för en renare framtid.
             </p>
           </div>
@@ -41,7 +41,7 @@ export default function Footer() {
           {/* Social – visas bara om minst en länk är konfigurerad */}
           {socialLinks.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-ink">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-warm-white/90">
                 Sociala medier
               </h3>
               <ul className="mt-3 space-y-2">
@@ -51,7 +51,7 @@ export default function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-ink-muted transition-colors hover:text-sage-dark"
+                      className="text-sm text-warm-white/60 transition-colors hover:text-clay-light"
                     >
                       {link.label}
                     </a>
@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Policies */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-ink">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-warm-white/90">
               Information
             </h3>
             <ul className="mt-3 space-y-2">
@@ -71,7 +71,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-ink-muted transition-colors hover:text-sage-dark"
+                    className="text-sm text-warm-white/60 transition-colors hover:text-clay-light"
                   >
                     {link.label}
                   </Link>
@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border-soft pt-6 text-center text-sm text-ink-muted">
+        <div className="mt-10 border-t border-warm-white/10 pt-6 text-center text-sm text-warm-white/40">
           © {new Date().getFullYear()} {siteConfig.siteName}. Alla rättigheter
           förbehållna.
         </div>
