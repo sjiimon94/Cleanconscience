@@ -18,7 +18,7 @@ const ctaCards = [
     emoji: "🛒",
   },
   {
-    title: "Kurser",
+    title: "Mina kurser",
     description: "Videokurser som ger dig kunskap att fatta medvetna beslut.",
     href: "/kurser",
     emoji: "🎓",

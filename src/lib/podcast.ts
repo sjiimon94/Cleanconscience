@@ -50,7 +50,7 @@ export async function fetchEpisodes(): Promise<PodcastEpisode[]> {
     const xml = await res.text();
 
     const items = xml.split("<item>").slice(1);
-    return items.map((item) => {
+    const episodes = items.map((item) => {
       const title = extractText(item, "title");
       const description = extractText(item, "description") || extractText(item, "itunes:summary") || "";
       const content = extractText(item, "content:encoded") || description;
@@ -70,6 +70,16 @@ export async function fetchEpisodes(): Promise<PodcastEpisode[]> {
         link,
       };
     });
+
+    // Sort by date descending so the newest episode comes first
+    episodes.sort((a, b) => {
+      if (a.date && b.date) return b.date.localeCompare(a.date);
+      if (a.date) return -1;
+      if (b.date) return 1;
+      return 0;
+    });
+
+    return episodes;
   } catch {
     return [];
   }
