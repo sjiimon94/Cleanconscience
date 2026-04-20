@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { siteConfig } from "../../config/site";
 
 export const metadata: Metadata = {
@@ -30,16 +31,15 @@ export default function KurserPage() {
               rel="noopener noreferrer"
               className="group flex flex-col rounded-2xl border border-border-soft bg-white p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
             >
-              {course.image && (
-                <div className="mb-4 h-40 w-full overflow-hidden rounded-xl bg-sand">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              )}
+              <div className="mb-4 h-44 w-full overflow-hidden rounded-[1.25rem] bg-sand">
+                <Image
+                  src={course.image || "/images/courses/teachable-editorial-placeholder.svg"}
+                  alt={`Kursbild för ${course.title}`}
+                  width={1200}
+                  height={720}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
               <h2 className="text-lg font-semibold text-ink group-hover:text-sage-dark">
                 {course.title}
               </h2>

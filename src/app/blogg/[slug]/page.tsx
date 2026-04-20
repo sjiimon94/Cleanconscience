@@ -36,9 +36,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <Link
         href="/blogg"
-        className="text-sm font-medium text-emerald-600 hover:text-emerald-700"
+        className="text-sm font-medium text-clay transition-colors hover:text-clay-dark"
       >
-        ← Alla inlägg
+        ← Alla skrifter
       </Link>
 
       <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900">

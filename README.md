@@ -51,6 +51,9 @@ NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN=
 # Teachable (valfritt)
 NEXT_PUBLIC_TEACHABLE_URL=https://cleanconscience.teachable.com
 
+# Patreon (valfritt)
+NEXT_PUBLIC_PATREON_URL=
+
 # Spotify (valfritt – för inbäddad spelare)
 NEXT_PUBLIC_SPOTIFY_SHOW_ID=
 ```
@@ -72,6 +75,7 @@ All central konfiguration finns i **`src/config/site.ts`**. Filen exporterar ett
 | `contactEmail` | Kontakt-e-post |
 | `description` | SEO-beskrivning (svenska) |
 | **`social`** | Sociala medier-URL:er (alla valfria) |
+| **`support`** | Stödlänkar (t.ex. Patreon, valfritt) |
 | **`shopify`** | Shopify-domän, fallback-URL, produkt-/kollektion-ID:n |
 | **`teachable`** | Teachable-skola + kurser (slug, titel, URL m.m.) |
 | **`podcast`** | `rssUrl` hämtas från `process.env.PODCAST_RSS_URL` – hårdkoda **inte** |

@@ -1,0 +1,24 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="220" y1="0" x2="1320" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A2E1C"/>
+      <stop offset="0.55" stop-color="#2F4D3A"/>
+      <stop offset="1" stop-color="#6E8E74"/>
+    </linearGradient>
+    <radialGradient id="mistA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 240) rotate(12) scale(520 300)">
+      <stop stop-color="#DDE8E0" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#DDE8E0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="mistB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1200 710) rotate(-18) scale(560 320)">
+      <stop stop-color="#F5E6DC" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#F5E6DC" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="980" fill="url(#bg)"/>
+  <rect width="1600" height="980" fill="url(#mistA)"/>
+  <rect width="1600" height="980" fill="url(#mistB)"/>
+  <g opacity="0.35">
+    <path d="M120 900C250 700 310 620 430 480C535 360 620 300 760 200C885 280 960 370 1080 520C1205 670 1290 760 1480 900H120Z" fill="#193122"/>
+    <path d="M20 940C200 760 280 670 430 570C600 455 730 430 920 505C1080 565 1180 680 1360 830C1430 890 1490 930 1560 960H20Z" fill="#274735"/>
+  </g>
+</svg>

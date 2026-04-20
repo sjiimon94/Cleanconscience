@@ -57,6 +57,9 @@ export interface SiteConfig {
   contactEmail: string;
   description: string;
   social: SocialLinks;
+  support: {
+    patreonUrl?: string;
+  };
   shopify: ShopifyConfig;
   teachable: TeachableConfig;
   podcast: PodcastConfig;
@@ -81,6 +84,10 @@ export const siteConfig: SiteConfig = {
     tiktok: undefined,
     youtube: "https://www.youtube.com/@ceciliaberg2701?app=desktop",
     facebook: "https://www.facebook.com/cecilia.berg.3/",
+  },
+
+  support: {
+    patreonUrl: process.env.NEXT_PUBLIC_PATREON_URL ?? "",
   },
 
   /* Shopify Buy Button / inbäddning */
