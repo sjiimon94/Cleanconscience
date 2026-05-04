@@ -44,15 +44,13 @@ export async function POST(req: NextRequest) {
       const itemRows = lineItems.data
         .map(
           (item) =>
-            `${item.description} × ${item.quantity} — ${(
+            `${item.description} × ${item.quantity} — ${Math.floor(
               (item.amount_total ?? 0) / 100
-            ).toFixed(0)} kr`
+            )} kr`
         )
         .join("\n");
 
-      const totalFormatted = `${((session.amount_total ?? 0) / 100).toFixed(
-        0
-      )} kr`;
+      const totalFormatted = `${Math.floor((session.amount_total ?? 0) / 100)} kr`;
 
       const resend = new Resend(process.env.RESEND_API_KEY);
 

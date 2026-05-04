@@ -89,7 +89,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     (sum, i) => sum + i.priceInOre * i.quantity,
     0
   );
-  const totalPriceFormatted = `${Math.round(totalPriceOre / 100)} kr`;
+  const totalPriceFormatted = `${Math.floor(totalPriceOre / 100)} kr`;
 
   return (
     <CartContext.Provider

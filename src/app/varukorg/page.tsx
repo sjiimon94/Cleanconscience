@@ -100,7 +100,7 @@ export default function VarukorgPage() {
 
             {/* Line total */}
             <div className="w-20 text-right font-semibold text-ink">
-              {Math.round((item.priceInOre * item.quantity) / 100)} kr
+              {Math.floor((item.priceInOre * item.quantity) / 100)} kr
             </div>
 
             {/* Remove */}
