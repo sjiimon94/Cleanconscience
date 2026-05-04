@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 export default function VarukorgPage() {
-  const { items, totalItems, totalPriceFormatted, removeItem, updateQuantity, clearCart } =
+  const { items, totalItems, totalPriceFormatted, removeItem, updateQuantity } =
     useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

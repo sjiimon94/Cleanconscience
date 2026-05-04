@@ -43,10 +43,15 @@ Skapa filen `.env.local` i projektets rot med följande innehåll (fyll i det so
 # Podcast – RSS-feed URL (obligatorisk för podcastsidor)
 PODCAST_RSS_URL=https://feed.podbean.com/Ofiltreratmjohannaocecilia/feed.xml
 
-# Shopify (valfritt – Buy Button inbäddning)
-NEXT_PUBLIC_SHOPIFY_DOMAIN=dinbutik.myshopify.com
-NEXT_PUBLIC_SHOPIFY_FALLBACK_URL=https://dinbutik.myshopify.com
-NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN=
+# Stripe (obligatoriskt för butik + betalning)
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Resend (obligatoriskt för orderbekräftelse-mail)
+RESEND_API_KEY=re_...
+
+# Webbplatsens offentliga URL (används av Stripe för redirect-URLs)
+NEXT_PUBLIC_SITE_URL=https://cleanconscience.se
 
 # Teachable (valfritt)
 NEXT_PUBLIC_TEACHABLE_URL=https://cleanconscience.teachable.com
@@ -59,6 +64,10 @@ NEXT_PUBLIC_SPOTIFY_SHOW_ID=
 ```
 
 Om `PODCAST_RSS_URL` saknas fungerar appen ändå – podcastsidorna visar inga avsnitt.
+
+Om `STRIPE_SECRET_KEY` saknas returnerar `/api/checkout` ett felmeddelande – butiken fungerar men betalning är inte möjlig.
+
+Om `RESEND_API_KEY` saknas skickas inga orderbekräftelsemail – betalning fungerar ändå.
 
 ---
 
@@ -156,6 +165,44 @@ Appen hämtar och parsar RSS-feeden server-side. Om variabeln saknas returneras 
 
 ---
 
+## Stripe (butik + betalning)
+
+Butiken använder **Stripe Checkout** för säker betalning. Ingen Shopify krävs.
+
+### Steg-för-steg
+
+1. **Skapa Stripe-konto** på [stripe.com](https://stripe.com) (gratis att komma igång).
+2. **Hämta Secret Key** under *Developers → API keys* → `sk_test_...` (test) eller `sk_live_...` (produktion). Sätt som `STRIPE_SECRET_KEY` i `.env.local`.
+3. **Skapa webhook** under *Developers → Webhooks → Add endpoint*:
+   - URL: `https://dindomän.se/api/webhook`
+   - Event att lyssna på: `checkout.session.completed`
+   - Kopiera *Signing secret* (`whsec_...`) → sätt som `STRIPE_WEBHOOK_SECRET`.
+4. **Testa lokalt** med [Stripe CLI](https://stripe.com/docs/stripe-cli):
+   ```bash
+   stripe listen --forward-to localhost:3000/api/webhook
+   ```
+
+### Lägga till fler produkter
+
+Redigera `src/data/products.ts` och lägg till fler produkter i `products`-arrayen. Varje produkt behöver ett unikt `id`/`slug`, `name`, `description`, `priceInOre` (pris i öre; 179 kr = 17900), `image`, `category` och `inStock`.
+
+### Byta produktbild
+
+Lägg din riktiga bokomslagsbild som `public/images/books/stina-och-mamma-stadar.jpg` och uppdatera `image`-fältet i `src/data/products.ts` till `/images/books/stina-och-mamma-stadar.jpg`.
+
+---
+
+## Resend (orderbekräftelsemail)
+
+Orderbekräftelse skickas via **Resend** efter lyckad betalning.
+
+1. Skapa konto på [resend.com](https://resend.com) (gratis tier: 100 mail/dag).
+2. Verifiera din avsändande domän (t.ex. `cleanconscience.se`) under *Domains*.
+3. Hämta API-nyckel under *API Keys* → sätt som `RESEND_API_KEY`.
+4. Uppdatera `from`-adressen i `src/app/api/webhook/route.ts` om domänen skiljer sig.
+
+---
+
 ## Bygga och validera
 
 ```bash
@@ -172,10 +219,11 @@ Innan lansering – gå igenom checklistan:
 
 - [ ] **Domän** – byt `siteUrl` i `src/config/site.ts` från `https://TODO_DOMAIN` till din riktiga domän
 - [ ] **Sociala medier** – fyll i faktiska URL:er i `social` (eller ta bort de som inte används)
-- [ ] **Shopify-domän** – sätt `NEXT_PUBLIC_SHOPIFY_DOMAIN` i `.env.local` eller `src/config/site.ts`
-- [ ] **Shopify fallback-URL** – sätt `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL`
-- [ ] **Shopify produkt-/kollektion-ID:n** – fyll i `shopify.productIds` / `shopify.collectionIds` vid behov
-- [ ] **Shopify Storefront Access Token** – sätt `NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` i `.env.local`
+- [ ] **Stripe Secret Key** – sätt `STRIPE_SECRET_KEY` i `.env.local` och Vercel
+- [ ] **Stripe Webhook Secret** – skapa webhook i Stripe Dashboard, sätt `STRIPE_WEBHOOK_SECRET`
+- [ ] **Resend API Key** – skapa konto på resend.com, verifiera domän, sätt `RESEND_API_KEY`
+- [ ] **Produktbild** – lägg riktigt bokomslag som `public/images/books/stina-och-mamma-stadar.jpg`
+- [ ] **Webbplats-URL** – sätt `NEXT_PUBLIC_SITE_URL` till produktionsdomänen
 - [ ] **Teachable-URL:er** – uppdatera `teachable.schoolUrl` och kurser i `src/config/site.ts`
 - [ ] **Podcast RSS-URL** – sätt `PODCAST_RSS_URL` i `.env.local` (och i Vercel Environment Variables)
 - [ ] **Spotify Show ID** – sätt `NEXT_PUBLIC_SPOTIFY_SHOW_ID` om du vill ha inbäddad Spotify-spelare
@@ -186,15 +234,22 @@ Innan lansering – gå igenom checklistan:
 ## Projektstruktur
 
 ```
-
 src/
   app/             # Next.js App Router
-  components/      # React-komponenter (Navbar, Footer, m.m.)
+    butik/         # Butikssidor (listing + [slug] produktsida)
+    varukorg/      # Varukorgssida
+    checkout/      # Success- och avbrytsidor
+    api/           # API-routes (checkout, webhook)
+  components/      # React-komponenter (Navbar, Footer, CartIcon m.m.)
+  context/         # React-kontext (CartContext)
+  data/            # Intern data (products.ts, external-writings.ts)
   lib/             # Hjälpfunktioner (podcast, MDX, markdown)
   config/
     site.ts          # Central konfiguration (typad)
     navigation.ts    # Navbar-länkar
 content/
   blogg/           # MDX-blogginlägg
-public/            # Statiska filer
+public/
+  images/
+    books/         # Bokomslag
 ```

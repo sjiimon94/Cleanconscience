@@ -174,23 +174,3 @@ Implementation notes:
 
 Approved spec changes:
 - Butiken använder nu intern produktkatalog + Stripe istället för Shopify-embed. ShopifyBuyButton.tsx behålls men används inte på butik-sidan längre.
-
-
-Summary:
-- Bytte synlig benämning från **Blogg** till **Skrifter** på användarsynliga ytor (route kvarstår som `/blogg`).
-- Gjorde om `/blogg` till två tydliga sektioner: **Interna texter** (befintliga MDX-inlägg) och **Externa texter** via ny datafil (`src/data/external-writings.ts`) med titel, outlet, datum, URL och beskrivning.
-- Uppdaterade startsidan med tydligare editorial grid-känsla: större featured-område, sidokolumn för senaste innehåll och lokal naturinspirerad bakgrund (`public/images/editorial/forest-hero.svg`).
-- Lade till kurser-kort med bildthumbnail i editorial stil och extern länk till befintlig Teachable-URL från config.
-- Byggde ut global footer för alla sidor med en ny länksektion i flera kolumner (Resurser, Hjälp, Om, Stötta), mjuk bakgrund och modern hover-stil.
-- Lade till Patreon-stöd i `siteConfig` (`support.patreonUrl`) och visning av CTA när URL finns.
-- Använde Cleanconscience-logotypen (`/images/Logotyp.jpg`) i både navbar och footer.
-- Lade till mini-footer längst ned med texten **"Hemsidan skapad och underhållen av Bröderna Strandevall"** samt ny SVG-logotyp (`public/images/broderna-strandevall.svg`).
-- Lade till lokal kurser-platshållarbild (`public/images/courses/teachable-editorial-placeholder.svg`) för enkel framtida ersättning.
-
-Implementation notes:
-- Filer ändrade: `src/app/page.tsx`, `src/app/blogg/page.tsx`, `src/app/blogg/[slug]/page.tsx`, `src/app/kurser/page.tsx`, `src/components/Footer.tsx`, `src/components/Navbar.tsx`, `src/config/site.ts`, `config/navigation.ts`, `README.md`, `docs/SESSION_LOG.md`
-- Filer skapade: `src/data/external-writings.ts`, `public/images/editorial/forest-hero.svg`, `public/images/broderna-strandevall.svg`, `public/images/courses/teachable-editorial-placeholder.svg`
-- `npm run lint` ✅
-- `npm run build` ✅
-
-Approved spec changes: None
