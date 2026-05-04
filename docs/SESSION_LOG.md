@@ -151,7 +151,30 @@ Implementation notes:
 
 Approved spec changes: None
 
-## 2026-04-20 — Skrifter-omtag, editorial yta och utökad footer
+## 2025-07-09 — Intern butik med Stripe + Resend
+
+Summary:
+- Ersatte Shopify-embed i `/butik` med intern produktkatalog driven av `src/data/products.ts`.
+- Lade till produkt "Stina och mamma städar" (bilderbok, 179 kr) som första artikel.
+- Implementerade kundvagn (localStorage, CartProvider/useCart), CartIcon i navbar (desktop + mobil).
+- Skapade produktdetaljsida `/butik/[slug]` med bild, beskrivning, lagerstatus och "Lägg i varukorg"-knapp.
+- Skapade varukorgssida `/varukorg` med antal-kontroller, ta-bort-knapp, totalsumma och kassaflöde.
+- Integrerade Stripe Checkout (`/api/checkout`) för betalning i SEK, frakt begränsad till Sverige.
+- Stripe webhook (`/api/webhook`) skickar orderbekräftelse via Resend.
+- Skapade success- (`/checkout/success`) och avbryt-sidor (`/checkout/cancel`).
+- SVG-platshållarbild för boken på `public/images/books/stina-och-mamma-stadar.svg`.
+- Uppdaterade `next.config.ts` med `dangerouslyAllowSVG` för next/image-kompatibilitet.
+- Sitemap utökad med `/varukorg` och `/butik/[slug]`-rutter.
+
+Implementation notes:
+- Stripe och Resend initialiseras lazy (inuti handlers) för att undvika build-time-fel utan env-vars.
+- Använd Stripe API-version `2026-04-22.dahlia` (senaste i installerad version 22.x).
+- Env vars som krävs: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, `NEXT_PUBLIC_SITE_URL`.
+- `npm run build` ✅ (24/24 routes)
+
+Approved spec changes:
+- Butiken använder nu intern produktkatalog + Stripe istället för Shopify-embed. ShopifyBuyButton.tsx behålls men används inte på butik-sidan längre.
+
 
 Summary:
 - Bytte synlig benämning från **Blogg** till **Skrifter** på användarsynliga ytor (route kvarstår som `/blogg`).

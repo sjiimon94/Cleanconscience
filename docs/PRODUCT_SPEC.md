@@ -13,7 +13,7 @@ This document is the project’s **authoritative specification**.
 ## 1) North Star / Goal
 
 Build an MVP public website for the Swedish company **Cleanconscience** (exact casing) that acts as a hub for:
-- Physical products (books, water filtration, merch) — purchased via Shopify (embed where possible)
+- Physical products (books, merch) — sold directly via internal Stripe-based checkout
 - Video courses (currently Teachable) — link out in MVP
 - Podcast (Spotify-hosted; use RSS for listing/episode pages)
 - Blog (simple, chronological)
@@ -29,10 +29,10 @@ Primary market: **Sweden**.
 - Single GitHub repo.
 - No custom login/auth in MVP.
 - No comments.
-- No custom payment flow in MVP.
+- Custom payment via Stripe Checkout (hosted page, no custom card form).
 - UI language: **Swedish only** (`sv-SE`) for user-facing text.
 - Shipping: **Sweden only**.
-- Prefer keeping visitors on the main website even when shopping (use Shopify embeds; keep fallback links).
+- Prefer keeping visitors on the main website for shopping (internal product pages with Stripe Checkout).
 
 ---
 
@@ -85,9 +85,11 @@ Create/maintain `config/site.ts` with at least:
    - Latest blog posts (3)
 
 2. `/butik`
-   - Categories: Böcker, Vattenfiltrering, Merch
-   - Each category: embedded Shopify collection/product grid if configured; otherwise placeholder + button to Shopify fallback
-   - Clear text: “Frakt inom Sverige”.
+   - Categories: Böcker, Merch
+   - Internal product catalog from `src/data/products.ts`
+   - Each product links to `/butik/[slug]` detail page
+   - Stripe Checkout for payment (SEK, Sweden only shipping)
+   - Clear text: “Gratis frakt inom Sverige”.
 
 3. `/kurser`
    - Course cards (Swedish)
