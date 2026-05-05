@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/context/CartContext";
 import { siteConfig } from "../config/site";
 
 export const metadata: Metadata = {
@@ -46,9 +47,11 @@ export default function RootLayout({
   return (
     <html lang="sv" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-warm-white font-sans text-ink">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

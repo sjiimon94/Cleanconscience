@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
+import CartIcon from "./CartIcon";
 import { navItems } from "../../config/navigation";
 import { siteConfig } from "../config/site";
 
@@ -45,10 +46,14 @@ export default function Navbar() {
               Stötta
             </a>
           )}
+          <CartIcon />
         </nav>
 
-        {/* Mobile hamburger */}
-        <MobileMenu />
+        {/* Mobile: cart icon + hamburger */}
+        <div className="flex items-center gap-1 md:hidden">
+          <CartIcon />
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );

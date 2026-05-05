@@ -151,23 +151,26 @@ Implementation notes:
 
 Approved spec changes: None
 
-## 2026-04-20 — Skrifter-omtag, editorial yta och utökad footer
+## 2025-07-09 — Intern butik med Stripe + Resend
 
 Summary:
-- Bytte synlig benämning från **Blogg** till **Skrifter** på användarsynliga ytor (route kvarstår som `/blogg`).
-- Gjorde om `/blogg` till två tydliga sektioner: **Interna texter** (befintliga MDX-inlägg) och **Externa texter** via ny datafil (`src/data/external-writings.ts`) med titel, outlet, datum, URL och beskrivning.
-- Uppdaterade startsidan med tydligare editorial grid-känsla: större featured-område, sidokolumn för senaste innehåll och lokal naturinspirerad bakgrund (`public/images/editorial/forest-hero.svg`).
-- Lade till kurser-kort med bildthumbnail i editorial stil och extern länk till befintlig Teachable-URL från config.
-- Byggde ut global footer för alla sidor med en ny länksektion i flera kolumner (Resurser, Hjälp, Om, Stötta), mjuk bakgrund och modern hover-stil.
-- Lade till Patreon-stöd i `siteConfig` (`support.patreonUrl`) och visning av CTA när URL finns.
-- Använde Cleanconscience-logotypen (`/images/Logotyp.jpg`) i både navbar och footer.
-- Lade till mini-footer längst ned med texten **"Hemsidan skapad och underhållen av Bröderna Strandevall"** samt ny SVG-logotyp (`public/images/broderna-strandevall.svg`).
-- Lade till lokal kurser-platshållarbild (`public/images/courses/teachable-editorial-placeholder.svg`) för enkel framtida ersättning.
+- Ersatte Shopify-embed i `/butik` med intern produktkatalog driven av `src/data/products.ts`.
+- Lade till produkt "Stina och mamma städar" (bilderbok, 179 kr) som första artikel.
+- Implementerade kundvagn (localStorage, CartProvider/useCart), CartIcon i navbar (desktop + mobil).
+- Skapade produktdetaljsida `/butik/[slug]` med bild, beskrivning, lagerstatus och "Lägg i varukorg"-knapp.
+- Skapade varukorgssida `/varukorg` med antal-kontroller, ta-bort-knapp, totalsumma och kassaflöde.
+- Integrerade Stripe Checkout (`/api/checkout`) för betalning i SEK, frakt begränsad till Sverige.
+- Stripe webhook (`/api/webhook`) skickar orderbekräftelse via Resend.
+- Skapade success- (`/checkout/success`) och avbryt-sidor (`/checkout/cancel`).
+- SVG-platshållarbild för boken på `public/images/books/stina-och-mamma-stadar.svg`.
+- Uppdaterade `next.config.ts` med `dangerouslyAllowSVG` för next/image-kompatibilitet.
+- Sitemap utökad med `/varukorg` och `/butik/[slug]`-rutter.
 
 Implementation notes:
-- Filer ändrade: `src/app/page.tsx`, `src/app/blogg/page.tsx`, `src/app/blogg/[slug]/page.tsx`, `src/app/kurser/page.tsx`, `src/components/Footer.tsx`, `src/components/Navbar.tsx`, `src/config/site.ts`, `config/navigation.ts`, `README.md`, `docs/SESSION_LOG.md`
-- Filer skapade: `src/data/external-writings.ts`, `public/images/editorial/forest-hero.svg`, `public/images/broderna-strandevall.svg`, `public/images/courses/teachable-editorial-placeholder.svg`
-- `npm run lint` ✅
-- `npm run build` ✅
+- Stripe och Resend initialiseras lazy (inuti handlers) för att undvika build-time-fel utan env-vars.
+- Använd Stripe API-version `2026-04-22.dahlia` (senaste i installerad version 22.x).
+- Env vars som krävs: `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `RESEND_API_KEY`, `NEXT_PUBLIC_SITE_URL`.
+- `npm run build` ✅ (24/24 routes)
 
-Approved spec changes: None
+Approved spec changes:
+- Butiken använder nu intern produktkatalog + Stripe istället för Shopify-embed. ShopifyBuyButton.tsx behålls men används inte på butik-sidan längre.
