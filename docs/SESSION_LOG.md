@@ -174,3 +174,26 @@ Implementation notes:
 
 Approved spec changes:
 - Butiken använder nu intern produktkatalog + Stripe istället för Shopify-embed. ShopifyBuyButton.tsx behålls men används inte på butik-sidan längre.
+
+## 2026-05-05 — Ecofilter-länk, utvalda produkter, kursbild, footer, stödsida, frakt 29 kr, Swish
+
+Summary:
+- **Ecofilter of Sweden**: Lade till en synlig partner-sektion på startsidan med extern CTA-knapp till ecofilterofsweden.se. Lade även till länk i footerns "Stötta"-kolumn. Inga Ecofilter-produkter kan köpas direkt på Cleanconscience-sidan.
+- **Utvalda produkter (startsidan)**: Ersatte ShopifyBuyButton-platshållare (3 dummy-produkter) med riktiga produktkort från intern katalog (`src/data/products.ts`). Sektionen visar nu bara köpbara produkter (inStock=true); om det bara finns 1 produkt visas 1 kort.
+- **Kursbild borttagen**: Tog bort bildegenskapen från "Kurser"-CTA-kortet på startsidan (barnvaccinationer.jpg visades inte längre).
+- **Footer omgjord**: Tog bort den mörka deep-forest-sektionen (som upplevdes som ett duplikat av headern). Logo, sociala länkar och copyright integrerades i den befintliga sand-bakgrundssektionen. Bröderna Strandevall-attributionen sammanfogades i copyright-raden.
+- **Stödsida `/stod`**: Skapade ny sida med Patreon-knapp/länk, Swish-betalningsnummer och info om Swish i kassan. Lade till "Stöd" i navigationsfältet och "Stöd projektet" i footer.
+- **Fraktkostnad 29 kr**: Uppdaterade varukorgssidan att visa 29 kr frakt separat i summeringen. Uppdaterade Stripe checkout-API att inkludera 29 kr som en separat rad ("Frakt (Sverige)"). Uppdaterade `/frakt`-sidan med korrekt information.
+- **Stripe + Swish Handel**: Lade till `"swish"` i `payment_method_types` i checkout-API:et. Swish visas som betalningsalternativ i Stripe Checkout om det är aktiverat i Stripe Dashboard.
+
+Implementation notes:
+- Filer ändrade: `src/app/page.tsx`, `src/components/Footer.tsx`, `src/app/api/checkout/route.ts`, `src/app/varukorg/page.tsx`, `src/app/frakt/page.tsx`, `src/app/sitemap.ts`, `config/navigation.ts`
+- Filer skapade: `src/app/stod/page.tsx`
+- **Manuellt steg – Swish i Stripe**: Logga in på Stripe Dashboard → Settings → Payment methods → aktivera "Swish". Swish kräver att kunden har ett svenskt mobilnummer. Kräver inget ytterligare kodarbete.
+- **Manuellt steg – Swish-nummer på `/stod`**: Ersätt platshållaren `"123 456 78 90"` i `src/app/stod/page.tsx` med korrekt Swish-nummer.
+- `npm run build` ✅ (25/25 routes)
+
+Approved spec changes:
+- Frakten är inte längre gratis – 29 kr tillkommer per beställning (frakt begränsad till Sverige).
+- Ny route `/stod` tillagd (stöd/donations-sida).
+- Startsidan "Utvalda produkter" använder nu intern produktkatalog istället för Shopify-embed.

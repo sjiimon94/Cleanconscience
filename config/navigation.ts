@@ -7,4 +7,5 @@ export const navItems = [
   { label: "Socialt", href: "/socialt" },
   { label: "Om", href: "/om" },
   { label: "Kontakt", href: "/kontakt" },
+  { label: "Stöd", href: "/stod" },
 ] as const;

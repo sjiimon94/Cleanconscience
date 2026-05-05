@@ -3,6 +3,8 @@ import Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
 
+const SHIPPING_AMOUNT_ORE = 2900; // 29 kr in öre
+
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: "2026-04-22.dahlia",
@@ -28,26 +30,38 @@ export async function POST(req: NextRequest) {
     const stripe = getStripe();
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ["card", "swish"],
       locale: "sv",
-      line_items: items.map(
-        (item: {
-          name: string;
-          priceInOre: number;
-          quantity: number;
-          image?: string;
-        }) => ({
+      line_items: [
+        ...items.map(
+          (item: {
+            name: string;
+            priceInOre: number;
+            quantity: number;
+            image?: string;
+          }) => ({
+            price_data: {
+              currency: "sek",
+              product_data: {
+                name: item.name,
+                images: item.image ? [`${origin}${item.image}`] : [],
+              },
+              unit_amount: item.priceInOre,
+            },
+            quantity: item.quantity,
+          })
+        ),
+        {
           price_data: {
             currency: "sek",
             product_data: {
-              name: item.name,
-              images: item.image ? [`${origin}${item.image}`] : [],
+              name: "Frakt (Sverige)",
             },
-            unit_amount: item.priceInOre,
+            unit_amount: SHIPPING_AMOUNT_ORE,
           },
-          quantity: item.quantity,
-        })
-      ),
+          quantity: 1,
+        },
+      ],
       mode: "payment",
       shipping_address_collection: {
         allowed_countries: ["SE"],

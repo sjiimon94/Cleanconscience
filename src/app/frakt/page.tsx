@@ -29,8 +29,9 @@ export default function FraktPage() {
 
         <h2>2. Fraktkostnad</h2>
         <p>
-          Fraktkostnaden beräknas i kassan baserat på vikt och storlek.
-          Eventuella kampanjer med fri frakt annonseras på webbplatsen.
+          En fast fraktkostnad på <strong>29 kr</strong> tillkommer per
+          beställning. Fraktkostnaden visas tydligt i varukorgen och i kassan
+          innan du slutför din beställning.
         </p>
 
         <h2>3. Leveranstid</h2>
