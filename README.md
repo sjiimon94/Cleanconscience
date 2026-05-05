@@ -59,6 +59,9 @@ NEXT_PUBLIC_TEACHABLE_URL=https://cleanconscience.teachable.com
 # Patreon (valfritt)
 NEXT_PUBLIC_PATREON_URL=
 
+# Swish-nummer för stödsidan (valfritt)
+NEXT_PUBLIC_SWISH_NUMBER=
+
 # Spotify (valfritt – för inbäddad spelare)
 NEXT_PUBLIC_SPOTIFY_SHOW_ID=
 ```

@@ -262,7 +262,7 @@ export default async function Home() {
             <div className="mt-8 text-center">
               <Link
                 href="/butik"
-                className="text-sm font-medium text-clay hover:text-clay-dark transition-colors"
+                className="text-sm font-medium text-clay transition-colors hover:text-clay-dark"
               >
                 Se alla produkter →
               </Link>

@@ -8,10 +8,9 @@ export const metadata: Metadata = {
     "Stötta Cleanconscience via Patreon eller Swish och hjälp till att hålla projektet igång.",
 };
 
-const swishNumber = "123 456 78 90"; // TODO: replace with real Swish number
-
 export default function StodPage() {
   const patreonUrl = siteConfig.support.patreonUrl?.trim();
+  const swishNumber = siteConfig.support.swishNumber?.trim();
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-20 sm:px-6 lg:px-8">
@@ -55,18 +54,26 @@ export default function StodPage() {
           <p className="mt-2 text-sm text-ink-muted">
             Skicka en engångsgåva direkt via Swish – snabbt och enkelt.
           </p>
-          <div className="mt-6 inline-flex items-center gap-3 rounded-xl bg-sand px-6 py-4">
-            <span className="text-2xl">📱</span>
-            <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-ink-muted">
-                Swish-nummer
+          {swishNumber ? (
+            <>
+              <div className="mt-6 inline-flex items-center gap-3 rounded-xl bg-sand px-6 py-4">
+                <span className="text-2xl">📱</span>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.12em] text-ink-muted">
+                    Swish-nummer
+                  </p>
+                  <p className="text-xl font-bold text-ink">{swishNumber}</p>
+                </div>
+              </div>
+              <p className="mt-4 text-sm text-ink-muted">
+                Ange gärna &quot;Cleanconscience&quot; som meddelande.
               </p>
-              <p className="text-xl font-bold text-ink">{swishNumber}</p>
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-ink-muted">
-            Ange gärna &quot;Cleanconscience&quot; som meddelande.
-          </p>
+            </>
+          ) : (
+            <p className="mt-4 text-sm text-ink-muted italic">
+              Swish-nummer tillkommer snart.
+            </p>
+          )}
         </div>
 
         {/* Swish Handel */}
