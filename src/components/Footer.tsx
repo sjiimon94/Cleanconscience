@@ -35,6 +35,7 @@ const footerColumns = [
     links: [
       { label: "Om Cecilia", href: "/om" },
       { label: "Socialt", href: "/socialt" },
+      { label: "Stöd projektet", href: "/stod" },
       { label: "Integritetspolicy", href: "/integritetspolicy" },
     ],
   },
@@ -47,6 +48,42 @@ export default function Footer() {
     <footer className="border-t border-border-soft">
       <div className="bg-sand/45">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          {/* Brand row */}
+          <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-3 text-lg font-bold tracking-tight text-ink transition-colors hover:text-clay"
+              >
+                <Image
+                  src="/images/Logotyp.jpg"
+                  alt="Cleanconscience logotyp"
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover"
+                />
+                <span>{siteConfig.siteName}</span>
+              </Link>
+              <p className="mt-2 max-w-xs text-sm text-ink-muted">
+                Medvetna val för en renare framtid.
+              </p>
+            </div>
+            {/* Social links */}
+            <div className="flex flex-wrap gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-ink-muted transition-colors hover:text-sage-dark"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
           <div className="grid gap-10 border-y border-border-soft/80 py-10 md:grid-cols-2 xl:grid-cols-4">
             {footerColumns.map((column) => (
               <div key={column.title}>
@@ -72,87 +109,50 @@ export default function Footer() {
                 Stötta
               </h3>
               <div className="mt-4 space-y-3">
+                <Link
+                  href="/stod"
+                  className="inline-flex items-center rounded-full bg-clay px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-clay-dark"
+                >
+                  Stötta projektet
+                </Link>
                 {patreonUrl && (
                   <a
                     href={patreonUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center rounded-full bg-clay px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-clay-dark"
-                  >
-                    Stötta på Patreon
-                  </a>
-                )}
-                {socialLinks.slice(0, 3).map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="block text-sm text-ink-muted transition-colors hover:text-sage-dark"
                   >
-                    {link.label}
+                    Patreon ↗
                   </a>
-                ))}
+                )}
+                <a
+                  href="https://www.ecofilterofsweden.se"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm text-ink-muted transition-colors hover:text-sage-dark"
+                >
+                  Ecofilters of Sweden ↗
+                </a>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="bg-deep-forest text-warm-white/80">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <Link
-                href="/"
-                className="inline-flex items-center gap-3 text-lg font-bold tracking-tight text-warm-white"
-              >
-                <Image
-                  src="/images/Logotyp.jpg"
-                  alt="Cleanconscience logotyp"
-                  width={44}
-                  height={44}
-                  className="rounded-full object-cover"
-                />
-                <span>{siteConfig.siteName}</span>
-              </Link>
-              <p className="mt-2 max-w-md text-sm text-warm-white/60">
-                Medvetna val för en renare framtid.
-              </p>
-            </div>
-            <div className="grid gap-3 text-sm">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-warm-white/60 transition-colors hover:text-clay-light"
-                >
-                  {link.label}
-                </a>
-              ))}
+          <div className="mt-8 flex flex-col items-start justify-between gap-4 text-sm text-ink-muted sm:flex-row sm:items-center">
+            <p>
+              © {new Date().getFullYear()} {siteConfig.siteName}. Alla
+              rättigheter förbehållna.
+            </p>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/broderna-strandevall.svg"
+                alt="Bröderna Strandevall logotyp"
+                width={100}
+                height={28}
+                className="h-auto w-[100px]"
+              />
+              <span>Skapad av Bröderna Strandevall</span>
             </div>
           </div>
-          <div className="mt-8 border-t border-warm-white/10 pt-6 text-sm text-warm-white/40">
-            © {new Date().getFullYear()} {siteConfig.siteName}. Alla rättigheter
-            förbehållna.
-          </div>
-        </div>
-      </div>
-
-      <div className="border-t border-border-soft bg-warm-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-3 px-4 py-5 text-center sm:flex-row sm:gap-4 sm:px-6 lg:px-8">
-          <Image
-            src="/images/broderna-strandevall.svg"
-            alt="Bröderna Strandevall logotyp"
-            width={120}
-            height={32}
-            className="h-auto w-[120px]"
-          />
-          <p className="text-sm text-ink-muted">
-            Hemsidan skapad och underhållen av Bröderna Strandevall
-          </p>
         </div>
       </div>
     </footer>

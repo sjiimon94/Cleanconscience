@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/mdx";
 import { fetchEpisodes } from "@/lib/podcast";
 import { siteConfig } from "../config/site";
-import ShopifyBuyButton from "@/components/ShopifyBuyButton";
+import { products } from "@/data/products";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import WaveDivider from "@/components/WaveDivider";
 
@@ -13,7 +13,14 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
-const ctaCards = [
+const ctaCards: {
+  title: string;
+  description: string;
+  href: string;
+  emoji: string;
+  external: boolean;
+  image?: string;
+}[] = [
   {
     title: "Butik",
     description: "Böcker, vattenfiltrering och mer – fraktas inom Sverige.",
@@ -27,9 +34,6 @@ const ctaCards = [
     href: siteConfig.teachable.courses[0]?.url || siteConfig.teachable.schoolUrl,
     emoji: "🎓",
     external: true,
-    image:
-      siteConfig.teachable.courses[0]?.image ||
-      "/images/courses/teachable-editorial-placeholder.svg",
   },
   {
     title: "Podcast",
@@ -53,11 +57,8 @@ export default async function Home() {
   const latestEpisode = episodes.length > 0 ? episodes[0] : null;
   const latestPost = posts.length > 0 ? posts[0] : null;
 
-  /* Use configured product IDs, or placeholder IDs for demo */
-  const productIds =
-    siteConfig.shopify.productIds && siteConfig.shopify.productIds.length > 0
-      ? siteConfig.shopify.productIds.slice(0, 6)
-      : ["placeholder-1", "placeholder-2", "placeholder-3"];
+  /* Show only purchasable (in-stock) products */
+  const featuredProducts = products.filter((p) => p.inStock);
 
   return (
     <>
@@ -217,25 +218,93 @@ export default async function Home() {
           <RevealOnScroll>
             <h2 className="text-2xl font-bold text-ink">Utvalda produkter</h2>
             <p className="mt-1 text-sm text-ink-muted">
-              Frakt inom Sverige. Handla direkt eller besök vår butik.
+              Frakt tillkommer med 29 kr. Handla direkt eller besök vår butik.
             </p>
           </RevealOnScroll>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {productIds.map((id, i) => (
-              <RevealOnScroll key={id} delay={i * 80}>
-                <div className="card-hover rounded-2xl border border-border-soft bg-white p-4">
-                  <ShopifyBuyButton productId={id} />
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
+          {featuredProducts.length > 0 ? (
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {featuredProducts.map((product, i) => (
+                <RevealOnScroll key={product.id} delay={i * 80}>
+                  <Link
+                    href={`/butik/${product.slug}`}
+                    className="card-hover group block overflow-hidden rounded-2xl border border-border-soft bg-white shadow-sm"
+                  >
+                    <div className="h-48 w-full overflow-hidden bg-sand">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        width={600}
+                        height={400}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-semibold text-ink group-hover:text-sage-dark">
+                        {product.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-ink-muted line-clamp-2">
+                        {product.shortDescription}
+                      </p>
+                      <p className="mt-3 text-base font-bold text-clay">
+                        {product.priceFormatted}
+                      </p>
+                    </div>
+                  </Link>
+                </RevealOnScroll>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-8 text-sm text-ink-muted">
+              Inga produkter tillgängliga just nu. Kom tillbaka snart!
+            </p>
+          )}
+          <RevealOnScroll delay={200}>
+            <div className="mt-8 text-center">
+              <Link
+                href="/butik"
+                className="text-sm font-medium text-clay transition-colors hover:text-clay-dark"
+              >
+                Se alla produkter →
+              </Link>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
       {/* Wave transition: sand → warm-white */}
       <WaveDivider fillTop="#F0E8DC" fillBottom="#FAF8F5" />
 
-      {/* Senaste podcastavsnittet */}
+      {/* Ecofilters of Sweden */}
+      <section className="bg-warm-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <RevealOnScroll>
+            <div className="flex flex-col gap-6 rounded-2xl border border-border-soft bg-white p-8 shadow-sm sm:flex-row sm:items-center">
+              <div className="flex-1">
+                <p className="text-xs uppercase tracking-[0.15em] text-ink-muted">
+                  Partner
+                </p>
+                <h2 className="mt-2 text-xl font-bold text-ink">
+                  Ecofilters of Sweden
+                </h2>
+                <p className="mt-2 text-sm text-ink-muted">
+                  Renare vatten för ett renare liv. Besök Ecofilters of Sweden
+                  för vattenfilter och produkter för ett mer medvetet hem.
+                </p>
+              </div>
+              <a
+                href="https://www.ecofilterofsweden.se"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 rounded-full bg-sage px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-sage-dark"
+              >
+                Besök Ecofilters of Sweden ↗
+              </a>
+            </div>
+          </RevealOnScroll>
+        </div>
+      </section>
+
+      {/* Wave: warm-white → warm-white (reuse same background for podcast) */}
       <section className="bg-warm-white px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>

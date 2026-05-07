@@ -5,10 +5,16 @@ import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 export default function VarukorgPage() {
-  const { items, totalItems, totalPriceFormatted, removeItem, updateQuantity } =
+  const { items, totalItems, removeItem, updateQuantity } =
     useCart();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const SHIPPING_ORE = 2900;
+  const totalPriceOre =
+    items.reduce((sum, item) => sum + item.priceInOre * item.quantity, 0) +
+    SHIPPING_ORE;
+  const totalPriceWithShipping = `${Math.floor(totalPriceOre / 100)} kr`;
 
   async function handleCheckout() {
     setLoading(true);
@@ -131,12 +137,12 @@ export default function VarukorgPage() {
       {/* Summary */}
       <div className="mt-8 rounded-2xl border border-border-soft bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between text-ink-muted">
-          <span>Frakt</span>
-          <span className="font-medium text-sage-dark">Gratis (Sverige)</span>
+          <span>Frakt (Sverige)</span>
+          <span className="font-medium text-ink">29 kr</span>
         </div>
         <div className="mt-3 flex items-center justify-between border-t border-border-soft pt-3">
           <span className="text-lg font-bold text-ink">Totalt</span>
-          <span className="text-2xl font-bold text-ink">{totalPriceFormatted}</span>
+          <span className="text-2xl font-bold text-ink">{totalPriceWithShipping}</span>
         </div>
 
         {error && (

@@ -59,6 +59,7 @@ export interface SiteConfig {
   social: SocialLinks;
   support: {
     patreonUrl?: string;
+    swishNumber?: string;
   };
   shopify: ShopifyConfig;
   teachable: TeachableConfig;
@@ -88,6 +89,7 @@ export const siteConfig: SiteConfig = {
 
   support: {
     patreonUrl: process.env.NEXT_PUBLIC_PATREON_URL ?? "",
+    swishNumber: process.env.NEXT_PUBLIC_SWISH_NUMBER ?? "",
   },
 
   /* Shopify Buy Button / inbäddning */
