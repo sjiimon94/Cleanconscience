@@ -197,3 +197,19 @@ Approved spec changes:
 - Frakten är inte längre gratis – 29 kr tillkommer per beställning (frakt begränsad till Sverige).
 - Ny route `/stod` tillagd (stöd/donations-sida).
 - Startsidan "Utvalda produkter" använder nu intern produktkatalog istället för Shopify-embed.
+
+## 2026-05-07 — Hydration-fix, textändringar, "Stötta"-validering
+
+Summary:
+- **Hydration-fix (CartContext)**: Ändrade `useState<CartItem[]>(readCart)` till `useState<CartItem[]>([])` + separat `useEffect` som läser localStorage efter mount. Servern och klienten renderar nu alltid en tom kundvagn på första render, vilket eliminerar hydration-mismatch.
+- **Ta bort "Öppna kursplattformen"**: Tog bort `<p>Öppna kursplattformen ↗</p>` från Kurser-CTA-kortet på startsidan.
+- **Ta bort "eller besök vår butik"**: Kortade ner texten under "Utvalda produkter" från "Handla direkt eller besök vår butik." till "Handla direkt."
+- **Stötta-knapp 404-fix**: Lade till URL-validering i `Navbar.tsx` – knappen visas nu bara om `patreonUrl` börjar med `https://` eller `http://`. Tom sträng, placeholder eller relativ sökväg döljer knappen.
+
+Implementation notes:
+- Filer ändrade: `src/context/CartContext.tsx`, `src/app/page.tsx`, `src/components/Navbar.tsx`, `docs/SESSION_LOG.md`
+- Inga nya dependencies
+- Svenska UI-texter bibehållna
+- PRODUCT_SPEC.md ej ändrad
+
+Approved spec changes: None

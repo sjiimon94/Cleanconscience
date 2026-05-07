@@ -6,7 +6,16 @@ import { navItems } from "../../config/navigation";
 import { siteConfig } from "../config/site";
 
 export default function Navbar() {
-  const patreonUrl = siteConfig.support.patreonUrl?.trim();
+  const rawPatreonUrl = siteConfig.support.patreonUrl?.trim() ?? "";
+  let patreonUrl = "";
+  try {
+    const parsed = new URL(rawPatreonUrl);
+    if (parsed.protocol === "https:" || parsed.protocol === "http:") {
+      patreonUrl = rawPatreonUrl;
+    }
+  } catch {
+    // invalid or empty URL – leave patreonUrl as ""
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-border-soft/60 bg-warm-white/90 backdrop-blur-md shadow-sm">

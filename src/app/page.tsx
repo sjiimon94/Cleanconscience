@@ -184,9 +184,7 @@ export default async function Home() {
                       <p className="mt-1 text-sm text-ink-muted">
                         {card.description}
                       </p>
-                      <p className="mt-3 text-sm font-medium text-clay">
-                        Öppna kursplattformen ↗
-                      </p>
+
                     </div>
                   </a>
                 ) : (
@@ -218,7 +216,7 @@ export default async function Home() {
           <RevealOnScroll>
             <h2 className="text-2xl font-bold text-ink">Utvalda produkter</h2>
             <p className="mt-1 text-sm text-ink-muted">
-              Frakt tillkommer med 29 kr. Handla direkt eller besök vår butik.
+              Frakt tillkommer med 29 kr. Handla direkt.
             </p>
           </RevealOnScroll>
           {featuredProducts.length > 0 ? (
