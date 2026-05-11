@@ -43,8 +43,13 @@ function readCart(): CartItem[] {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(readCart);
+  const [items, setItems] = useState<CartItem[]>([]);
   const isFirstRender = useRef(true);
+
+  // Load from localStorage after mount so SSR and client initial render match
+  useEffect(() => {
+    setItems(readCart());
+  }, []);
 
   useEffect(() => {
     if (isFirstRender.current) {
