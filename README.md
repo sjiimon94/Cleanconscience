@@ -8,7 +8,7 @@ En snabb, SEO-vänlig webbplats för **Cleanconscience** – medvetna val för e
 
 - **Teknik:** Next.js (App Router) · TypeScript · Tailwind CSS · MDX
 - **Marknad:** Sverige (svenska UI-texter, SEK, frakt inom Sverige)
-- **Drift:** Vercel (eller valfri Node-host)
+- **Drift:** Vercel · domän `cleanconscience.se` (se "Publicering"-avsnittet nedan)
 - **Ingen inloggning, inga kommentarer, ingen egen betalning** i MVP
 
 ---
@@ -166,11 +166,58 @@ npm run dev      # Utvecklingsserver
 
 ---
 
+## Publicering (Vercel)
+
+Projektet är konfigurerat för **Vercel** och körs med Next.js server-side rendering. GitHub Pages rekommenderas inte eftersom sidan hämtar podcast-RSS live.
+
+### Steg 1 – Koppla repot till Vercel
+
+1. Gå till [vercel.com](https://vercel.com) och logga in (skapa konto om det behövs).
+2. Klicka **Add New → Project**.
+3. Välj GitHub-repot `sjiimon94/Cleanconscience` och klicka **Import**.
+4. Vercel identifierar Next.js automatiskt – inga extra byggsteg behövs.
+5. Klicka **Deploy**.
+
+Vercel deplovar automatiskt vid varje `push` till `main`-branchen och skapar preview-deployments för Pull Requests.
+
+### Steg 2 – Miljövariabler i Vercel
+
+Gå till **Project → Settings → Environment Variables** och lägg till:
+
+| Variabel | Exempelvärde | Krav |
+|---|---|---|
+| `PODCAST_RSS_URL` | `https://feed.podbean.com/Ofiltreratmjohannaocecilia/feed.xml` | **Obligatorisk** |
+| `NEXT_PUBLIC_SPOTIFY_SHOW_ID` | `063j4LSHHIJaPbjSsCElDW` | Valfri |
+| `NEXT_PUBLIC_PATREON_URL` | `https://patreon.com/dittnamn` | Valfri |
+| `NEXT_PUBLIC_SHOPIFY_DOMAIN` | `dinbutik.myshopify.com` | Valfri |
+| `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL` | `https://dinbutik.myshopify.com` | Valfri |
+| `NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` | Shopify Storefront API-token | Valfri |
+
+### Steg 3 – Anslut domänen `cleanconscience.se`
+
+1. I Vercel: **Project → Settings → Domains → Add**.
+2. Lägg till `cleanconscience.se` och `www.cleanconscience.se`.
+3. Konfigurera DNS hos din domänregistrar:
+
+**Apex-domän (`cleanconscience.se`) – A-record:**
+```
+A  @  76.76.21.21
+```
+
+**Subdomän (`www`) – CNAME-record:**
+```
+CNAME  www  cname.vercel-dns.com
+```
+
+> **OBS:** DNS-ändringar kan ta upp till 48 timmar att slå igenom. Vercel visar ett grönt bockmarke när domänen är verifierad och HTTPS-certifikatet är utfärdat.
+
+---
+
 ## Fyll i detta ✅
 
 Innan lansering – gå igenom checklistan:
 
-- [ ] **Domän** – byt `siteUrl` i `src/config/site.ts` från `https://TODO_DOMAIN` till din riktiga domän
+- [x] **Domän** – `siteUrl` i `src/config/site.ts` är satt till `https://cleanconscience.se`
 - [ ] **Sociala medier** – fyll i faktiska URL:er i `social` (eller ta bort de som inte används)
 - [ ] **Shopify-domän** – sätt `NEXT_PUBLIC_SHOPIFY_DOMAIN` i `.env.local` eller `src/config/site.ts`
 - [ ] **Shopify fallback-URL** – sätt `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL`

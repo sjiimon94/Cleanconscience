@@ -171,3 +171,21 @@ Implementation notes:
 - `npm run build` ✅
 
 Approved spec changes: None
+
+## 2026-05-18 — Deployment configuration and domain setup
+
+Summary:
+- Set `siteUrl` to `https://cleanconscience.se` in `src/config/site.ts` (was `https://TODO_DOMAIN`). This activates the sitemap.xml and robots.txt Sitemap directive for production.
+- Fixed `contactEmail` to `cecilia@strandevall.se` (was the placeholder `sjiimon94@gmail.com`; the kontakt page already used the correct email).
+- Added a "Publicering (Vercel)" section to `README.md` with:
+  - Step-by-step Vercel project import and deploy guide
+  - Required and optional environment variables table
+  - DNS configuration for `cleanconscience.se` apex (A → 76.76.21.21) and www (CNAME → cname.vercel-dns.com)
+- Marked the "Domän" item as done in the README pre-launch checklist.
+- Updated "Drift" line in README header to reference `cleanconscience.se` and the new section.
+
+Implementation notes:
+- Files changed: `src/config/site.ts`, `README.md`, `docs/SESSION_LOG.md`
+- No new dependencies added
+
+Approved spec changes: None
