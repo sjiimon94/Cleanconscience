@@ -72,10 +72,10 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   siteName: "Cleanconscience",
-  siteUrl: "https://TODO_DOMAIN",
+  siteUrl: "https://cleanconscience.se",
   locale: "sv-SE",
   currency: "SEK",
-  contactEmail: "sjiimon94@gmail.com",
+  contactEmail: "cecilia@strandevall.se",
   description:
     "Cleanconscience – medvetna val för en renare framtid. Barnböcker, vattenfiltrering, kurser och mer.",
 
