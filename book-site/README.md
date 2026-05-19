@@ -3,9 +3,6 @@
 En fristående, konverteringsoptimerad försäljningssida för bilderboken
 **Stina och mamma städar** av Cecilia Strandevall.
 
-> **OBS:** Denna webbplats är helt separat från huvudsajten (cleanconscience.se).
-> Den har sin egen kodbas, styling och deployment.
-
 ---
 
 ## Teknikstack
@@ -22,21 +19,18 @@ En fristående, konverteringsoptimerad försäljningssida för bilderboken
 ## Köra lokalt
 
 ```bash
-# 1. Gå till book-site-mappen
-cd book-site
-
-# 2. Installera beroenden
+# 1. Installera beroenden
 npm install
 
-# 3. Skapa miljövariabelfil
+# 2. Skapa miljövariabelfil
 cp .env.local.example .env.local
 # Fyll i STRIPE_SECRET_KEY och NEXT_PUBLIC_SITE_URL
 
-# 4. Starta utvecklingsservern (port 3001 för att inte krocka med huvudsajten)
-PORT=3001 npm run dev
+# 3. Starta utvecklingsservern
+npm run dev
 ```
 
-Öppna [http://localhost:3001](http://localhost:3001).
+Öppna [http://localhost:3000](http://localhost:3000).
 
 ---
 
@@ -61,8 +55,8 @@ npm run start   # Starta produktionsserver
 
 ### Driftsätta på Vercel
 
-1. Skapa ett **nytt** Vercel-projekt (separat från huvudsajten).
-2. Välj mappen `book-site/` som **Root Directory** i Vercel-inställningarna.
+1. Skapa ett nytt Vercel-projekt och importera detta repo.
+2. **Root Directory**: lämna som `/` (standard — ange INTE `book-site/`).
 3. Lägg till miljövariabler under *Project → Settings → Environment Variables*.
 4. Anslut din domän.
 
@@ -123,34 +117,33 @@ Uppdatera dessa om priset ändras. Uppdatera även priserna i
 ## Projektstruktur
 
 ```
-book-site/
-  src/
-    app/
-      layout.tsx              # HTML-skal + metadata
-      page.tsx                # Huvudsida (sammanfogar alla sektioner)
-      globals.css             # Tailwind v4 + design-tokens
-      api/checkout/route.ts   # Stripe Checkout API
-      checkout/
-        success/page.tsx      # Tacksida
-        cancel/page.tsx       # Avbrutet-sida
-    components/
-      Navbar.tsx              # Sticky toppmeny med köp-CTA
-      Hero.tsx                # Hero: bokomslag + hook + CTA
-      ValueProps.tsx          # 4 säljargument
-      BookDescription.tsx     # Bokbeskrivning + författarinfo
-      HowToBuy.tsx            # 4-stegs köpguide
-      PricingShipping.tsx     # Prislista + fraktinfo
-      Policies.tsx            # Retur-, integritets- & köpvillkor
-      FAQ.tsx                 # Vanliga frågor (HTML details/summary)
-      FinalCTA.tsx            # Avslutande köp-CTA
-      Footer.tsx              # Footer med kontakt
-      BuyButton.tsx           # Client-komponent: initierar Stripe Checkout
-  public/
-    book-cover.svg            # [REPLACE] med riktigt omslag
-  .env.local.example          # Mall för miljövariabler
-  package.json
-  tsconfig.json
-  next.config.ts
-  postcss.config.mjs
-  README.md
+src/
+  app/
+    layout.tsx              # HTML-skal + metadata
+    page.tsx                # Huvudsida (sammanfogar alla sektioner)
+    globals.css             # Tailwind v4 + design-tokens
+    api/checkout/route.ts   # Stripe Checkout API
+    checkout/
+      success/page.tsx      # Tacksida
+      cancel/page.tsx       # Avbrutet-sida
+  components/
+    Navbar.tsx              # Sticky toppmeny med köp-CTA
+    Hero.tsx                # Hero: bokomslag + hook + CTA
+    ValueProps.tsx          # 4 säljargument
+    BookDescription.tsx     # Bokbeskrivning + författarinfo
+    HowToBuy.tsx            # 4-stegs köpguide
+    PricingShipping.tsx     # Prislista + fraktinfo
+    Policies.tsx            # Retur-, integritets- & köpvillkor
+    FAQ.tsx                 # Vanliga frågor (HTML details/summary)
+    FinalCTA.tsx            # Avslutande köp-CTA
+    Footer.tsx              # Footer med kontakt
+    BuyButton.tsx           # Client-komponent: initierar Stripe Checkout
+public/
+  book-cover.svg            # [REPLACE] med riktigt omslag
+.env.local.example          # Mall för miljövariabler
+package.json
+tsconfig.json
+next.config.ts
+postcss.config.mjs
+README.md
 ```
