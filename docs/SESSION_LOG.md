@@ -231,3 +231,25 @@ Implementation notes:
 - No new dependencies added
 
 Approved spec changes: None
+
+## 2026-05-18 — Standalone book sales website (book-site/)
+
+Summary:
+- Created a fully standalone, single-page book sales website in `book-site/` — its own Next.js app, separate from cleanconscience.se.
+- Purpose: sell the children's picture book "Stina och mamma städar" directly online.
+- Single-page sales design: Hero → Value props → Book description → How to buy → Pricing & shipping → Policies → FAQ → Final CTA.
+- Direct Stripe Checkout integration (no cart, single-product flow): POST /api/checkout → Stripe hosted checkout → /checkout/success or /checkout/cancel.
+- All UI text in Swedish (`sv-SE`).
+
+Implementation notes:
+- Key files: `book-site/src/app/page.tsx`, `book-site/src/app/layout.tsx`, `book-site/src/app/api/checkout/route.ts`, `book-site/src/components/` (Navbar, Hero, ValueProps, BookDescription, HowToBuy, PricingShipping, Policies, FAQ, FinalCTA, Footer, BuyButton).
+- Tailwind CSS v4 with custom design tokens (warm editorial palette: cream, forest green, clay, sage).
+- Placeholder book cover at `book-site/public/book-cover.svg` — replace with real cover.
+- All content placeholders clearly marked with `[REPLACE]` comments in code.
+- Pricing matches main site: 179 kr + 29 kr frakt.
+- Excluded `book-site/` from main site's `tsconfig.json` to prevent cross-contamination.
+- Both `npm run build` (main site) and `book-site/npm run build` ✅ (5/5 routes).
+- Setup documented in `book-site/README.md`.
+
+Approved spec changes: None
+
