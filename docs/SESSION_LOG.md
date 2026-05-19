@@ -275,3 +275,44 @@ Remaining manual steps (cannot be automated here):
 
 Approved spec changes: None
 
+
+## 2026-05-19 — Extract book-site into sjiimon94/stinab-ckerna.se
+
+Summary:
+- Prepared a clean, standalone copy of `book-site/` for `sjiimon94/stinab-ckerna.se`.
+- The agent environment token is scoped to `Cleanconscience` only; the actual push to `stinab-ckerna.se` requires one manual command (see below).
+
+Implementation notes:
+- All 26 files from `book-site/` staged at `/tmp/stinab-ckerna/` with three minimal extraction fixes applied:
+  1. `src/app/layout.tsx` — fallback `localhost:3001` → `localhost:3000`
+  2. `src/app/api/checkout/route.ts` — fallback `localhost:3001` → `localhost:3000`
+  3. `src/components/Footer.tsx` — copyright `Cleanconscience` → `Cecilia Strandevall`
+- `.env.local.example` created (was described in PR #17 description but omitted from the actual commit).
+- All `[REPLACE]` placeholders intentionally preserved (book cover, SEO domain, policies, FAQ, etc.).
+- A local git repo was initialized and committed in `/tmp/stinab-ckerna` (see manual step below).
+
+Manual step required:
+Since the agent token only has write access to this repo, run this on your local machine:
+
+```bash
+# Option A — push from tmp (if running on same machine the agent used):
+cd /tmp/stinab-ckerna
+git remote set-url origin https://github.com/sjiimon94/stinab-ckerna.se.git
+git push -u origin main
+
+# Option B — fresh copy anywhere:
+git clone https://github.com/sjiimon94/Cleanconscience.git /tmp/clone-src
+cp -r /tmp/clone-src/book-site/. /tmp/stinab-standalone/
+cd /tmp/stinab-standalone
+# apply the three fixes in the notes above, then:
+git init && git add . && git branch -M main
+git commit -m "feat: initial standalone extraction from Cleanconscience/book-site"
+git remote add origin https://github.com/sjiimon94/stinab-ckerna.se.git
+git push -u origin main
+```
+
+After verifying `stinab-ckerna.se` is live:
+- Set `STRIPE_SECRET_KEY` and `NEXT_PUBLIC_SITE_URL` in Vercel env vars
+- Then open a PR in this repo to `git rm -r book-site/`
+
+Approved spec changes: None
