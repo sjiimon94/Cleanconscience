@@ -253,3 +253,25 @@ Implementation notes:
 
 Approved spec changes: None
 
+## 2026-05-19 — Prepare book-site for standalone extraction
+
+Summary:
+- Applied all file edits to `book-site/` required before extracting it into its own repo.
+
+Implementation notes:
+- `book-site/next.config.ts`: removed `turbopack.root` workaround and `import path` (only needed when nested inside monorepo).
+- `book-site/.gitignore`: expanded with standard Next.js ignores (`*.tsbuildinfo`, `next-env.d.ts`, `.vercel`, `*.pem`, debug logs).
+- `book-site/.env.local.example`: created — README referenced this file but it was missing from the repo.
+- `book-site/README.md`: removed `cd book-site` step, removed monorepo disclaimer, updated `PORT=3001` → default port, updated Vercel instructions (Root Directory is now `/` not `book-site/`), updated project structure listing to reflect repo-root layout.
+
+Remaining manual steps (cannot be automated here):
+1. Create new GitHub repo (e.g. `stina-och-mamma-stadar-site`), do not initialize it.
+2. `cp -r book-site/ /path/to/new-local-dir && cd /path/to/new-local-dir`
+3. `git init && git add . && git commit -m "init: extract from Cleanconscience monorepo"`
+4. `git remote add origin https://github.com/sjiimon94/<new-repo>.git && git branch -M main && git push -u origin main`
+5. Create new Vercel project pointing at the new repo; Root Directory = `/`.
+6. Add env vars: `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_SITE_URL`.
+7. After verifying the new repo builds and deploys: `git rm -r book-site/` in this repo, PR and merge.
+
+Approved spec changes: None
+
