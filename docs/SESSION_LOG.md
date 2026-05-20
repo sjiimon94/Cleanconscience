@@ -342,3 +342,55 @@ Conclusion:
 To populate `stinab-ckerna.se`, the user must execute the manual push commands from the 2026-05-19 entry (Option A or Option B) on their local machine.
 
 Approved spec changes: None
+
+## 2026-05-20 — Windows guide: manual push to sjiimon94/stinab-ckerna.se
+
+Summary:
+- Clarified execution model for the user question: this cannot be completed fully autonomously in the current setup.
+- Reason: the agent token/session is scoped to `sjiimon94/Cleanconscience` and cannot push to `sjiimon94/stinab-ckerna.se`.
+- Added the simplest Windows-friendly, copy/paste workflow (PowerShell) with exact commands and where to run them.
+
+Windows path (PowerShell, local machine):
+1. Open **PowerShell** on your Windows PC.
+2. Run all commands below in PowerShell (for example from `Desktop`).
+
+```powershell
+cd $HOME\Desktop
+git clone https://github.com/sjiimon94/Cleanconscience.git cleanconscience-src
+New-Item -ItemType Directory -Path .\stinab-standalone -Force | Out-Null
+Copy-Item -Path .\cleanconscience-src\book-site\* -Destination .\stinab-standalone -Recurse -Force
+cd .\stinab-standalone
+
+# Fix 1: localhost fallback in layout
+(Get-Content .\src\app\layout.tsx -Raw).Replace("localhost:3001", "localhost:3000") | Set-Content .\src\app\layout.tsx
+
+# Fix 2: localhost fallback in checkout route
+(Get-Content .\src\app\api\checkout\route.ts -Raw).Replace("localhost:3001", "localhost:3000") | Set-Content .\src\app\api\checkout\route.ts
+
+# Fix 3: footer copyright
+(Get-Content .\src\components\Footer.tsx -Raw).Replace("Cleanconscience", "Cecilia Strandevall") | Set-Content .\src\components\Footer.tsx
+
+# Create .env.local.example
+@"
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+"@ | Set-Content .\.env.local.example
+
+git init
+git add .
+git branch -M main
+git commit -m "feat: initial standalone extraction from Cleanconscience/book-site"
+git remote add origin https://github.com/sjiimon94/stinab-ckerna.se.git
+git push -u origin main
+```
+
+After push:
+1. Connect `sjiimon94/stinab-ckerna.se` to Vercel.
+2. Add Stripe env vars in Vercel.
+3. Point domain to the new Vercel project.
+4. Verify build/deploy.
+5. Open a follow-up PR in this repo to remove `book-site/` (`git rm -r book-site/`).
+
+Approved spec changes: None
