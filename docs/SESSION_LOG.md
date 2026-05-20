@@ -316,3 +316,29 @@ After verifying `stinab-ckerna.se` is live:
 - Then open a PR in this repo to `git rm -r book-site/`
 
 Approved spec changes: None
+
+## 2026-05-20 — Investigation: why PR #18 does not appear in sjiimon94/stinab-ckerna.se
+
+Summary:
+- Investigated PR #18 (`sjiimon94/Cleanconscience#18`) at the user's request after they noticed no changes in `sjiimon94/stinab-ckerna.se`.
+
+Findings:
+
+1. **PR #18 is entirely within `sjiimon94/Cleanconscience`.**
+   - Head: `sjiimon94/Cleanconscience` branch `copilot/extract-standalone-nextjs-app`
+   - Base: `sjiimon94/Cleanconscience` branch `main`
+   - Neither repository pointer refers to `sjiimon94/stinab-ckerna.se`.
+
+2. **PR #18 only touches one file: `docs/SESSION_LOG.md` (+41 lines).**
+   - It records the extraction plan and manual steps needed to populate `stinab-ckerna.se`.
+   - No source code was pushed to `stinab-ckerna.se` by that PR or its merge.
+
+3. **A manual push step is still required.**
+   - The agent token used in that session was scoped to `Cleanconscience` only, so the actual push to `stinab-ckerna.se` was left as a documented manual command.
+   - The commands are recorded in the "2026-05-19 — Extract book-site into sjiimon94/stinab-ckerna.se" entry above.
+
+Conclusion:
+**Nothing from PR #18 should appear in `sjiimon94/stinab-ckerna.se` automatically — that is by design.**
+To populate `stinab-ckerna.se`, the user must execute the manual push commands from the 2026-05-19 entry (Option A or Option B) on their local machine.
+
+Approved spec changes: None
