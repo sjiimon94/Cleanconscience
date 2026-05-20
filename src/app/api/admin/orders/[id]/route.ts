@@ -43,7 +43,20 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const body = await req.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+  }
+
+  // Only allow updating the 'sent' field
+  if (typeof body.sent !== "boolean") {
+    return NextResponse.json(
+      { error: "Invalid request: 'sent' must be a boolean" },
+      { status: 400 }
+    );
+  }
 
   const orders = readOrders();
   const index = orders.findIndex((o: { id: string }) => o.id === id);
@@ -52,7 +65,7 @@ export async function PATCH(
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
-  orders[index] = { ...orders[index], ...body };
+  orders[index] = { ...orders[index], sent: body.sent };
   writeOrders(orders);
 
   return NextResponse.json(orders[index]);

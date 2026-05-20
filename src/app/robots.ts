@@ -5,10 +5,11 @@ export default function robots(): MetadataRoute.Robots {
   const { url: baseUrl, isProduction } = getSafeBaseUrl();
 
   return {
-    rules: [
-      { userAgent: "*", allow: "/" },
-      { userAgent: "*", disallow: ["/admin", "/api"] },
-    ],
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/admin", "/api"],
+    },
     ...(isProduction ? { sitemap: `${baseUrl}/sitemap.xml` } : {}),
   };
 }
