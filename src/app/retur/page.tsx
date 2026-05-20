@@ -2,55 +2,58 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Retur & ångerrätt",
-  description: "Returpolicy och ångerrätt för Cleanconscience.",
+  description: "Returpolicy och ångerrätt vid köp via ceciliastrandevall.se.",
 };
 
 export default function ReturPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <div className="mb-8 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">
-        <strong>OBS:</strong> Detta är ett utkast och en mall. Texten nedan
-        måste granskas av en jurist innan den publiceras som bindande
-        returpolicy.
-      </div>
-
       <h1 className="text-3xl font-bold tracking-tight text-gray-900">
         Retur &amp; ångerrätt
       </h1>
 
       <div className="prose prose-gray mt-8 max-w-none">
         <p>
-          <strong>Senast uppdaterad:</strong> [DATUM]
+          <strong>Senast uppdaterad:</strong> 2026-05-20
         </p>
 
         <h2>1. Ångerrätt</h2>
         <p>
-          Som konsument har du enligt distansavtalslagen rätt att ångra ditt köp
-          inom 14 dagar från det att du mottagit varan.
+          Du har 14 dagars ångerrätt från det att du tagit emot varan, i
+          enlighet med distansavtalslagen (SFS 2005:59). Ångerrätten gäller
+          utan att du behöver ange skäl.
         </p>
 
         <h2>2. Hur gör jag en retur?</h2>
+        <ol>
+          <li>
+            Meddela oss inom 14 dagar från mottagandet via e-post:{" "}
+            <a href="mailto:cecilia@strandevall.se">cecilia@strandevall.se</a>
+          </li>
+          <li>Returnera varan i ursprungligt skick (oläst, i originalskick).</li>
+          <li>Du står för returfrakt.</li>
+        </ol>
         <p>
-          Kontakta oss via <a href="/kontakt">kontaktsidan</a> för att meddela
-          att du vill returnera en vara. Vi skickar instruktioner för retur.
+          <a
+            href="https://www.konsumentverket.se/globalassets/publikationer/produkter-och-tjanster/standardblankett-for-angarande-av-avtal.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Standardblankett för ånger (PDF)
+          </a>
         </p>
 
-        <h2>3. Skick på returvaror</h2>
+        <h2>3. Återbetalning</h2>
         <p>
-          Varan ska returneras i samma skick som den levererades. Varor som är
-          använda, skadade eller saknar originalförpackning kan nekas retur.
+          Vi återbetalar bokens pris (179 kr) inom 14 dagar efter att vi
+          mottagit returen, med samma betalningsmetod som användes vid köpet.
+          Fraktkostnaden (29 kr) återbetalas ej vid retur.
         </p>
 
-        <h2>4. Återbetalning</h2>
-        <p>
-          Återbetalning sker inom 14 dagar efter att vi mottagit den returnerade
-          varan, med samma betalningsmetod som användes vid köpet.
-        </p>
-
-        <h2>5. Undantag</h2>
+        <h2>4. Undantag</h2>
         <p>
           Digitala produkter (t.ex. videokurser) kan inte returneras efter att
-          de har aktiverats.
+          de har aktiverats/laddats ned.
         </p>
       </div>
     </div>
