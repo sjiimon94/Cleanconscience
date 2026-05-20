@@ -352,7 +352,7 @@ Summary:
 - Updated OG image alt text in `layout.tsx`.
 - Updated Footer with seller identification: org.nr 559163-8712, address, clickable email.
 - Replaced all four legal page drafts with complete, final texts (villkor, integritetspolicy, retur, frakt). Removed OBS-banner, set date to 2026-05-20.
-- Built admin panel: `/admin` (client component with sessionStorage login), `/api/admin/orders` (GET), `/api/admin/orders/[id]` (PATCH), `src/middleware.ts` (protects `/api/admin/*`).
+- Built admin panel: `/admin` (client component with sessionStorage login), `/api/admin/orders` (GET), `/api/admin/orders/[id]` (PATCH), `src/proxy.ts` (protects `/api/admin/*`).
 - Extended webhook to save orders to `data/orders.json` (created automatically if missing).
 - Added `data/orders.json` to `.gitignore`.
 - Refactored `/checkout/success` to async Server Component with Stripe payment verification; extracted `CartClearer` client component for `clearCart()`.
@@ -362,7 +362,7 @@ Summary:
 - Created `.env.local.example` with all environment variables documented.
 
 Implementation notes:
-- Key files touched: `src/config/site.ts`, `src/app/api/webhook/route.ts`, `src/app/layout.tsx`, `src/components/Footer.tsx`, `src/app/villkor/page.tsx`, `src/app/integritetspolicy/page.tsx`, `src/app/retur/page.tsx`, `src/app/frakt/page.tsx`, `src/app/api/admin/orders/route.ts`, `src/app/api/admin/orders/[id]/route.ts`, `src/app/admin/page.tsx`, `src/app/admin/layout.tsx`, `src/middleware.ts`, `src/app/checkout/success/page.tsx`, `src/components/CartClearer.tsx`, `src/app/robots.ts`, `README.md`, `.env.local.example`
+- Key files touched: `src/config/site.ts`, `src/app/api/webhook/route.ts`, `src/app/layout.tsx`, `src/components/Footer.tsx`, `src/app/villkor/page.tsx`, `src/app/integritetspolicy/page.tsx`, `src/app/retur/page.tsx`, `src/app/frakt/page.tsx`, `src/app/api/admin/orders/route.ts`, `src/app/api/admin/orders/[id]/route.ts`, `src/app/admin/page.tsx`, `src/app/admin/layout.tsx`, `src/proxy.ts`, `src/app/checkout/success/page.tsx`, `src/components/CartClearer.tsx`, `src/app/robots.ts`, `README.md`, `.env.local.example`
 - No new npm dependencies added.
 - `data/orders.json` is gitignored and created at runtime by the webhook handler.
 
