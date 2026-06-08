@@ -137,20 +137,30 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-col items-start justify-between gap-4 text-sm text-ink-muted sm:flex-row sm:items-center">
-            <p>
-              © {new Date().getFullYear()} {siteConfig.siteName}. Alla
-              rättigheter förbehållna.
-            </p>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/broderna-strandevall.svg"
-                alt="Bröderna Strandevall logotyp"
-                width={100}
-                height={28}
-                className="h-auto w-[100px]"
-              />
-              <span>Skapad av Bröderna Strandevall</span>
+          <div className="mt-8 flex flex-col gap-2 text-sm text-ink-muted">
+            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+              <div>
+                <p>© {new Date().getFullYear()} cleanconscience AB · Org.nr 559163-8712</p>
+                <p>
+                  Lendahlsgatan 13, 441 31 Alingsås ·{" "}
+                  <a
+                    href="mailto:cecilia@strandevall.se"
+                    className="transition-colors hover:text-sage-dark"
+                  >
+                    cecilia@strandevall.se
+                  </a>
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/images/broderna-strandevall.svg"
+                  alt="Bröderna Strandevall logotyp"
+                  width={100}
+                  height={28}
+                  className="h-auto w-[100px]"
+                />
+                <span>Skapad av Bröderna Strandevall</span>
+              </div>
             </div>
           </div>
         </div>

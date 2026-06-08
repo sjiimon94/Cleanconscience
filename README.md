@@ -4,11 +4,11 @@
 - Goals/constraints (authoritative): `docs/PRODUCT_SPEC.md`
 - Recent decisions (append-only log): `docs/SESSION_LOG.md`
 
-En snabb, SEO-vänlig webbplats för **Cleanconscience** – medvetna val för en renare framtid.
+En snabb, SEO-vänlig webbplats för **Cecilia Strandevall** – barnboksförfattare, podcastvärd och grundare av Cleanconscience.
 
 - **Teknik:** Next.js (App Router) · TypeScript · Tailwind CSS · MDX
 - **Marknad:** Sverige (svenska UI-texter, SEK, frakt inom Sverige)
-- **Drift:** Vercel · domän `cleanconscience.se` (se "Publicering"-avsnittet nedan)
+- **Drift:** Vercel · domän `ceciliastrandevall.se` (se "Publicering"-avsnittet nedan)
 - **Ingen inloggning, inga kommentarer, ingen egen betalning** i MVP
 
 ---
@@ -51,7 +51,7 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 RESEND_API_KEY=re_...
 
 # Webbplatsens offentliga URL (används av Stripe för redirect-URLs)
-NEXT_PUBLIC_SITE_URL=https://cleanconscience.se
+NEXT_PUBLIC_SITE_URL=https://ceciliastrandevall.se
 
 # Teachable (valfritt)
 NEXT_PUBLIC_TEACHABLE_URL=https://cleanconscience.teachable.com
@@ -64,6 +64,12 @@ NEXT_PUBLIC_SWISH_NUMBER=
 
 # Spotify (valfritt – för inbäddad spelare)
 NEXT_PUBLIC_SPOTIFY_SHOW_ID=
+
+# Admin-panel lösenord
+ADMIN_PASSWORD=byt-till-starkt-losenord
+
+# Umami Analytics (valfritt – cookiefri webbstatistik)
+NEXT_PUBLIC_UMAMI_WEBSITE_ID=ditt-umami-webbplats-id
 ```
 
 Om `PODCAST_RSS_URL` saknas fungerar appen ändå – podcastsidorna visar inga avsnitt.
@@ -177,7 +183,7 @@ Butiken använder **Stripe Checkout** för säker betalning. Ingen Shopify kräv
 1. **Skapa Stripe-konto** på [stripe.com](https://stripe.com) (gratis att komma igång).
 2. **Hämta Secret Key** under *Developers → API keys* → `sk_test_...` (test) eller `sk_live_...` (produktion). Sätt som `STRIPE_SECRET_KEY` i `.env.local`.
 3. **Skapa webhook** under *Developers → Webhooks → Add endpoint*:
-   - URL: `https://dindomän.se/api/webhook`
+   - URL: `https://ceciliastrandevall.se/api/webhook`
    - Event att lyssna på: `checkout.session.completed`
    - Kopiera *Signing secret* (`whsec_...`) → sätt som `STRIPE_WEBHOOK_SECRET`.
 4. **Testa lokalt** med [Stripe CLI](https://stripe.com/docs/stripe-cli):
@@ -236,20 +242,26 @@ Gå till **Project → Settings → Environment Variables** och lägg till:
 
 | Variabel | Exempelvärde | Krav |
 |---|---|---|
-| `PODCAST_RSS_URL` | `https://feed.podbean.com/Ofiltreratmjohannaocecilia/feed.xml` | **Obligatorisk** |
+| `STRIPE_SECRET_KEY` | `sk_live_...` | **Obligatorisk** |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_...` | **Obligatorisk** |
+| `RESEND_API_KEY` | `re_...` | Obligatorisk för mail |
+| `NEXT_PUBLIC_SITE_URL` | `https://ceciliastrandevall.se` | **Obligatorisk** |
+| `ADMIN_PASSWORD` | `starkt-losenord` | **Obligatorisk för admin** |
+| `PODCAST_RSS_URL` | `https://feed.podbean.com/...` | **Obligatorisk** |
 | `NEXT_PUBLIC_SPOTIFY_SHOW_ID` | `063j4LSHHIJaPbjSsCElDW` | Valfri |
 | `NEXT_PUBLIC_PATREON_URL` | `https://patreon.com/dittnamn` | Valfri |
 | `NEXT_PUBLIC_SHOPIFY_DOMAIN` | `dinbutik.myshopify.com` | Valfri |
 | `NEXT_PUBLIC_SHOPIFY_FALLBACK_URL` | `https://dinbutik.myshopify.com` | Valfri |
 | `NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN` | Shopify Storefront API-token | Valfri |
+| `NEXT_PUBLIC_UMAMI_WEBSITE_ID` | `ditt-umami-id` | Valfri |
 
-### Steg 3 – Anslut domänen `cleanconscience.se`
+### Steg 3 – Anslut domänen `ceciliastrandevall.se`
 
 1. I Vercel: **Project → Settings → Domains → Add**.
-2. Lägg till `cleanconscience.se` och `www.cleanconscience.se`.
+2. Lägg till `ceciliastrandevall.se` och `www.ceciliastrandevall.se`.
 3. Konfigurera DNS hos din domänregistrar:
 
-**Apex-domän (`cleanconscience.se`) – A-record:**
+**Apex-domän (`ceciliastrandevall.se`) – A-record:**
 ```
 A  @  76.76.21.21
 ```
@@ -267,7 +279,7 @@ CNAME  www  cname.vercel-dns.com
 
 Innan lansering – gå igenom checklistan:
 
-- [x] **Domän** – `siteUrl` i `src/config/site.ts` är satt till `https://cleanconscience.se`
+- [x] **Domän** – `siteUrl` i `src/config/site.ts` är satt till `https://ceciliastrandevall.se`
 - [ ] **Sociala medier** – fyll i faktiska URL:er i `social` (eller ta bort de som inte används)
 - [ ] **Stripe Secret Key** – sätt `STRIPE_SECRET_KEY` i `.env.local` och Vercel
 - [ ] **Stripe Webhook Secret** – skapa webhook i Stripe Dashboard, sätt `STRIPE_WEBHOOK_SECRET`
@@ -278,6 +290,33 @@ Innan lansering – gå igenom checklistan:
 - [ ] **Podcast RSS-URL** – sätt `PODCAST_RSS_URL` i `.env.local` (och i Vercel Environment Variables)
 - [ ] **Spotify Show ID** – sätt `NEXT_PUBLIC_SPOTIFY_SHOW_ID` om du vill ha inbäddad Spotify-spelare
 - [ ] **Kontakt-e-post** – verifiera `contactEmail` i `src/config/site.ts`
+
+---
+
+## Admin-panel
+
+En enkel lösenordsskyddad orderhanteringssida finns på `/admin`.
+
+- Logga in med lösenordet du satt i `ADMIN_PASSWORD` (miljövariabel).
+- Visar alla inkomna ordrar med datum, namn, adress, e-post, belopp och status.
+- Markera ordrar som "Skickad" med ett knapptryck.
+- Lösenordet sparas i `sessionStorage` under sessionen.
+- Ordrar sparas lokalt i `data/orders.json` (inte committat till repot).
+
+Sätt `ADMIN_PASSWORD` i `.env.local` och i Vercel Environment Variables.
+
+---
+
+## Analytics
+
+Webbplatsen stödjer [Umami Analytics](https://umami.is) – en cookiefri, GDPR-kompatibel lösning som inte kräver samtyckesbanner.
+
+1. Skapa konto på [umami.is](https://umami.is) (gratis).
+2. Skapa en ny webbplats i Umami-dashboarden.
+3. Kopiera **Website ID** (UUID-format).
+4. Sätt `NEXT_PUBLIC_UMAMI_WEBSITE_ID` i `.env.local` och i Vercel Environment Variables.
+
+Scriptet laddas automatiskt in när variabeln är satt.
 
 ---
 

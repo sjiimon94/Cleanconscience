@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
         url: "/images/og-default.png",
         width: 1200,
         height: 630,
-        alt: "Cleanconscience – medvetna val för en renare framtid",
+        alt: "Cecilia Strandevall – barnboksförfattare och grundare av Cleanconscience",
       },
     ],
   },
@@ -47,6 +48,14 @@ export default function RootLayout({
   return (
     <html lang="sv" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-warm-white font-sans text-ink">
+        {process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <Script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            strategy="afterInteractive"
+          />
+        )}
         <CartProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

@@ -71,13 +71,13 @@ export interface SiteConfig {
 /* ------------------------------------------------------------------ */
 
 export const siteConfig: SiteConfig = {
-  siteName: "Cleanconscience",
-  siteUrl: "https://cleanconscience.se",
+  siteName: "Cecilia Strandevall",
+  siteUrl: "https://ceciliastrandevall.se",
   locale: "sv-SE",
   currency: "SEK",
   contactEmail: "cecilia@strandevall.se",
   description:
-    "Cleanconscience – medvetna val för en renare framtid. Barnböcker, vattenfiltrering, kurser och mer.",
+    "Cecilia Strandevall – barnboksförfattare, podcastvärd och grundare av Cleanconscience. Böcker, kurser och podcast.",
 
   /* Sociala medier – fyll i de som är aktuella, lämna resten tomma */
   social: {

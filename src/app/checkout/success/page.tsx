@@ -1,18 +1,39 @@
-"use client";
-
+import { redirect } from "next/navigation";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useCart } from "@/context/CartContext";
+import Stripe from "stripe";
+import CartClearer from "@/components/CartClearer";
 
-export default function SuccessPage() {
-  const { clearCart } = useCart();
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2026-04-22.dahlia",
+  });
+}
 
-  useEffect(() => {
-    clearCart();
-  }, [clearCart]);
+export default async function SuccessPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id?: string }>;
+}) {
+  const { session_id } = await searchParams;
+
+  if (!session_id) {
+    redirect("/");
+  }
+
+  try {
+    const stripe = getStripe();
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+
+    if (session.payment_status !== "paid") {
+      redirect("/");
+    }
+  } catch {
+    redirect("/");
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6 lg:px-8">
+      <CartClearer />
       <div className="mb-6 text-6xl">🎉</div>
       <h1 className="text-3xl font-bold text-ink">Tack för din beställning!</h1>
       <p className="mt-4 text-lg text-ink-muted">
