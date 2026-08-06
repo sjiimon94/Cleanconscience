@@ -368,3 +368,39 @@ Implementation notes:
 
 Approved spec changes:
 - None
+
+## 2026-08-06 — Major restructure: remove e-commerce, add Utforska hub
+
+Summary:
+- Removed all internal e-commerce: butik, varukorg, checkout, Stripe checkout API, webhook, admin panel, order handling, CartContext, CartIcon, CartClearer, AddToCartButton, ShopifyBuyButton, products.ts, proxy.ts, external-writings.ts, frakt/retur pages.
+- Introduced new top-level navigation item "Utforska" with desktop dropdown and mobile submenu.
+- Created /utforska overview page with category grid.
+- Created /utforska/produkter (book info page with external CTA).
+- Created /utforska/vattenfilter (info page with external CTA to Ecofilters of Sweden).
+- Created /utforska/publiceringar (publications grid from src/data/publications.ts).
+- Created src/data/publications.ts as simple data source for adding new publications via URL.
+- Updated navigation (config/navigation.ts) with NavItem type supporting children for dropdown.
+- Updated Navbar with CSS hover dropdown for desktop.
+- Updated MobileMenu with expandable submenu.
+- Updated Footer (removed Butik/Frakt/Retur, added Utforska links, renamed Skrifter → Publiceringar).
+- Updated homepage: removed product section, butik CTA, "Handla direkt" copy; added "Utforska mer" CTA; renamed Skrifter → Publiceringar.
+- Updated layout.tsx to remove CartProvider.
+- Updated site config to remove ShopifyConfig.
+- Added redirects in next.config.ts for old routes (butik, varukorg, checkout, frakt, retur).
+- Updated sitemap.ts to reflect new routes.
+- Updated blogg/page.tsx to remove external-writings dependency; renamed title to Publiceringar.
+- Updated README.md with new structure, removed all Stripe/Resend/Shopify/admin docs.
+- Updated PRODUCT_SPEC.md to reflect content hub model.
+
+Implementation notes:
+- Key files created: src/app/utforska/page.tsx, src/app/utforska/produkter/page.tsx, src/app/utforska/vattenfilter/page.tsx, src/app/utforska/publiceringar/page.tsx, src/data/publications.ts
+- Key files removed: src/app/butik/**, src/app/varukorg/**, src/app/checkout/**, src/app/admin/**, src/app/api/**, src/app/frakt/**, src/app/retur/**, src/components/CartIcon.tsx, src/components/CartClearer.tsx, src/components/AddToCartButton.tsx, src/components/ShopifyBuyButton.tsx, src/context/CartContext.tsx, src/data/products.ts, src/data/external-writings.ts, src/proxy.ts
+- Build passes: `npm run build` succeeds with all new routes.
+
+Approved spec changes:
+- Updated PRODUCT_SPEC §1 (North Star): content hub model, no internal e-commerce
+- Updated PRODUCT_SPEC §2 (Hard Requirements): removed Stripe/payment, added "no internal payment"
+- Updated PRODUCT_SPEC §3 (Non-goals): added "no internal e-commerce"
+- Updated PRODUCT_SPEC §5 (Config): removed Shopify config
+- Updated PRODUCT_SPEC §6 (Routes): new Utforska routes, removed butik/varukorg/checkout/frakt/retur
+- Updated PRODUCT_SPEC §8: replaced Shopify Buy Button with Publications Data Source

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/mdx";
 import { fetchEpisodes } from "@/lib/podcast";
 import { siteConfig } from "../config/site";
-import { products } from "@/data/products";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import WaveDivider from "@/components/WaveDivider";
 
@@ -18,36 +17,30 @@ const ctaCards: {
   description: string;
   href: string;
   emoji: string;
-  external: boolean;
-  image?: string;
 }[] = [
   {
-    title: "Butik",
-    description: "Böcker, vattenfiltrering och mer – fraktas inom Sverige.",
-    href: "/butik",
-    emoji: "🛒",
-    external: false,
+    title: "Produkter",
+    description: "Böcker och andra produkter — beställ via extern bokhandel.",
+    href: "/utforska/produkter",
+    emoji: "📚",
   },
   {
     title: "Kurser",
-    description: "Videokurser på min kursplattform med fördjupande innehåll.",
-    href: siteConfig.teachable.courses[0]?.url || siteConfig.teachable.schoolUrl,
+    description: "Videokurser med fördjupande innehåll om hälsa och medvetna val.",
+    href: "/kurser",
     emoji: "🎓",
-    external: true,
   },
   {
     title: "Podcast",
     description: "Lyssna på samtal om hälsa, medvetenhet och samhälle.",
     href: "/podcast",
     emoji: "🎙️",
-    external: false,
   },
   {
-    title: "Skrifter",
-    description: "Artiklar och tankar kring en renare livsstil.",
-    href: "/blogg",
+    title: "Publiceringar",
+    description: "Artiklar, gästtexter och andra medverkan.",
+    href: "/utforska/publiceringar",
     emoji: "📝",
-    external: false,
   },
 ];
 
@@ -56,9 +49,6 @@ export default async function Home() {
   const episodes = await fetchEpisodes();
   const latestEpisode = episodes.length > 0 ? episodes[0] : null;
   const latestPost = posts.length > 0 ? posts[0] : null;
-
-  /* Show only purchasable (in-stock) products */
-  const featuredProducts = products.filter((p) => p.inStock);
 
   return (
     <>
@@ -85,16 +75,16 @@ export default async function Home() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
-                href="/butik"
+                href="/utforska"
                 className="rounded-full bg-clay px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-clay-dark"
               >
-                Utforska butiken
+                Utforska mer
               </Link>
               <Link
-                href="/blogg"
+                href="/utforska/publiceringar"
                 className="rounded-full border border-white/35 px-7 py-3 text-sm font-semibold text-warm-white transition-colors hover:border-clay-light hover:text-clay-light"
               >
-                Läs skrifter
+                Publiceringar
               </Link>
             </div>
           </RevealOnScroll>
@@ -121,7 +111,7 @@ export default async function Home() {
             </div>
             <div className="rounded-2xl bg-white/10 p-4">
               <p className="text-xs uppercase tracking-[0.16em] text-sage-light/80">
-                Senast i skrifter
+                Senast i publiceringar
               </p>
               {latestPost ? (
                 <Link
@@ -158,49 +148,18 @@ export default async function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {ctaCards.map((card, i) => (
               <RevealOnScroll key={card.href} delay={i * 100}>
-                {card.external ? (
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-hover group block overflow-hidden rounded-2xl border border-border-soft bg-white shadow-sm"
-                  >
-                    {card.image && (
-                      <div className="h-36 w-full overflow-hidden">
-                        <Image
-                          src={card.image}
-                          alt="Bild för kurskort"
-                          width={1200}
-                          height={720}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                    )}
-                    <div className="p-6">
-                      <span className="text-3xl">{card.emoji}</span>
-                      <h2 className="mt-3 text-lg font-semibold text-ink group-hover:text-sage-dark">
-                        {card.title}
-                      </h2>
-                      <p className="mt-1 text-sm text-ink-muted">
-                        {card.description}
-                      </p>
-
-                    </div>
-                  </a>
-                ) : (
-                  <Link
-                    href={card.href}
-                    className="card-hover group block rounded-2xl border border-border-soft bg-white p-6 shadow-sm"
-                  >
-                    <span className="text-3xl">{card.emoji}</span>
-                    <h2 className="mt-3 text-lg font-semibold text-ink group-hover:text-sage-dark">
-                      {card.title}
-                    </h2>
-                    <p className="mt-1 text-sm text-ink-muted">
-                      {card.description}
-                    </p>
-                  </Link>
-                )}
+                <Link
+                  href={card.href}
+                  className="card-hover group block rounded-2xl border border-border-soft bg-white p-6 shadow-sm"
+                >
+                  <span className="text-3xl">{card.emoji}</span>
+                  <h2 className="mt-3 text-lg font-semibold text-ink group-hover:text-sage-dark">
+                    {card.title}
+                  </h2>
+                  <p className="mt-1 text-sm text-ink-muted">
+                    {card.description}
+                  </p>
+                </Link>
               </RevealOnScroll>
             ))}
           </div>
@@ -210,70 +169,8 @@ export default async function Home() {
       {/* Wave transition: warm-white → sand */}
       <WaveDivider fillTop="#FAF8F5" fillBottom="#F0E8DC" />
 
-      {/* Utvalda produkter */}
-      <section className="bg-sand px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <RevealOnScroll>
-            <h2 className="text-2xl font-bold text-ink">Utvalda produkter</h2>
-            <p className="mt-1 text-sm text-ink-muted">
-              Frakt tillkommer med 29 kr. Handla direkt.
-            </p>
-          </RevealOnScroll>
-          {featuredProducts.length > 0 ? (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {featuredProducts.map((product, i) => (
-                <RevealOnScroll key={product.id} delay={i * 80}>
-                  <Link
-                    href={`/butik/${product.slug}`}
-                    className="card-hover group block overflow-hidden rounded-2xl border border-border-soft bg-white shadow-sm"
-                  >
-                    <div className="h-48 w-full overflow-hidden bg-sand">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        width={600}
-                        height={400}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <h3 className="font-semibold text-ink group-hover:text-sage-dark">
-                        {product.name}
-                      </h3>
-                      <p className="mt-1 text-sm text-ink-muted line-clamp-2">
-                        {product.shortDescription}
-                      </p>
-                      <p className="mt-3 text-base font-bold text-clay">
-                        {product.priceFormatted}
-                      </p>
-                    </div>
-                  </Link>
-                </RevealOnScroll>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-8 text-sm text-ink-muted">
-              Inga produkter tillgängliga just nu. Kom tillbaka snart!
-            </p>
-          )}
-          <RevealOnScroll delay={200}>
-            <div className="mt-8 text-center">
-              <Link
-                href="/butik"
-                className="text-sm font-medium text-clay transition-colors hover:text-clay-dark"
-              >
-                Se alla produkter →
-              </Link>
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      {/* Wave transition: sand → warm-white */}
-      <WaveDivider fillTop="#F0E8DC" fillBottom="#FAF8F5" />
-
       {/* Ecofilters of Sweden */}
-      <section className="bg-warm-white px-4 py-16 sm:px-6 lg:px-8">
+      <section className="bg-sand px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
             <div className="flex flex-col gap-6 rounded-2xl border border-border-soft bg-white p-8 shadow-sm sm:flex-row sm:items-center">
@@ -302,7 +199,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Wave: warm-white → warm-white (reuse same background for podcast) */}
+      {/* Wave: sand → warm-white */}
+      <WaveDivider fillTop="#F0E8DC" fillBottom="#FAF8F5" />
+
+      {/* Senaste podcastavsnittet */}
       <section className="bg-warm-white px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
@@ -342,11 +242,11 @@ export default async function Home() {
       {/* Wave transition: warm-white → misty-blue */}
       <WaveDivider fillTop="#FAF8F5" fillBottom="#E4EDF2" />
 
-      {/* Senaste skrifter */}
+      {/* Senaste publiceringar */}
       <section className="bg-misty-blue px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <RevealOnScroll>
-            <h2 className="text-2xl font-bold text-ink">Senaste skrifter</h2>
+            <h2 className="text-2xl font-bold text-ink">Senaste publiceringar</h2>
           </RevealOnScroll>
           {posts.length > 0 ? (
             <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -367,17 +267,17 @@ export default async function Home() {
             </div>
           ) : (
               <p className="mt-4 text-sm text-ink-muted">
-              Inga skrifter publicerade ännu. Kom tillbaka snart!
+              Inga publiceringar ännu. Kom tillbaka snart!
               </p>
           )}
           {posts.length > 0 && (
             <RevealOnScroll delay={350}>
               <div className="mt-8 text-center">
                 <Link
-                  href="/blogg"
+                  href="/utforska/publiceringar"
                   className="text-sm font-medium text-clay hover:text-clay-dark transition-colors"
                 >
-                  Läs alla skrifter →
+                  Alla publiceringar →
                 </Link>
               </div>
             </RevealOnScroll>

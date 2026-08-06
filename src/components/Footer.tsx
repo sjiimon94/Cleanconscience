@@ -13,20 +13,19 @@ const socialLinks = [
 
 const footerColumns = [
   {
-    title: "Resurser",
+    title: "Utforska",
     links: [
-      { label: "Podcast", href: "/podcast" },
+      { label: "Produkter", href: "/utforska/produkter" },
+      { label: "Vattenfilter", href: "/utforska/vattenfilter" },
       { label: "Kurser", href: "/kurser" },
-      { label: "Skrifter", href: "/blogg" },
-      { label: "Butik", href: "/butik" },
+      { label: "Podcast", href: "/podcast" },
+      { label: "Publiceringar", href: "/utforska/publiceringar" },
     ],
   },
   {
     title: "Hjälp",
     links: [
       { label: "Kontakt", href: "/kontakt" },
-      { label: "Frakt", href: "/frakt" },
-      { label: "Retur", href: "/retur" },
       { label: "Villkor", href: "/villkor" },
     ],
   },
