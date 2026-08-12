@@ -9,21 +9,6 @@ export interface SocialLinks {
   facebook?: string;
 }
 
-export interface ShopifyConfig {
-  /** T.ex. "dinbutik.myshopify.com" */
-  domain: string;
-  /** Fallback-länk till fullständig Shopify-butik */
-  buyButtonFallbackUrl: string;
-  /** Produkt-ID:n för inbäddning (valfritt) */
-  productIds?: string[];
-  /** Kollektion-ID:n per kategori (valfritt) */
-  collectionIds?: {
-    bocker?: string;
-    vattenfiltrering?: string;
-    merch?: string;
-  };
-}
-
 export interface TeachableCourse {
   slug: string;
   title: string;
@@ -61,7 +46,6 @@ export interface SiteConfig {
     patreonUrl?: string;
     swishNumber?: string;
   };
-  shopify: ShopifyConfig;
   teachable: TeachableConfig;
   podcast: PodcastConfig;
 }
@@ -90,21 +74,6 @@ export const siteConfig: SiteConfig = {
   support: {
     patreonUrl: process.env.NEXT_PUBLIC_PATREON_URL ?? "",
     swishNumber: process.env.NEXT_PUBLIC_SWISH_NUMBER ?? "",
-  },
-
-  /* Shopify Buy Button / inbäddning */
-  shopify: {
-    domain:
-      process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN ?? "dinbutik.myshopify.com",
-    buyButtonFallbackUrl:
-      process.env.NEXT_PUBLIC_SHOPIFY_FALLBACK_URL ??
-      "https://dinbutik.myshopify.com",
-    productIds: [],
-    collectionIds: {
-      bocker: undefined,
-      vattenfiltrering: undefined,
-      merch: undefined,
-    },
   },
 
   /* Teachable – länka ut till kurser */

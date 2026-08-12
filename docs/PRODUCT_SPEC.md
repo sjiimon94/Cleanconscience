@@ -12,14 +12,15 @@ This document is the project’s **authoritative specification**.
 
 ## 1) North Star / Goal
 
-Build an MVP public website for the Swedish company **Cleanconscience** (exact casing) that acts as a hub for:
-- Physical products (books, merch) — sold directly via internal Stripe-based checkout
-- Video courses (currently Teachable) — link out in MVP
+Build an MVP public website for the Swedish company **Cleanconscience** (exact casing) that acts as a content and link hub for:
+- Physical products (books) — link out to external bookshop
+- Video courses (currently Teachable) — link out
 - Podcast (Spotify-hosted; use RSS for listing/episode pages)
-- Blog (simple, chronological)
+- Vattenfilter (link out to Ecofilters of Sweden)
+- Publications / external writings
 - Social media links
 
-Primary market: **Sweden**.
+No internal e-commerce, payment, cart, or checkout. Primary market: **Sweden**.
 
 ---
 
@@ -29,15 +30,15 @@ Primary market: **Sweden**.
 - Single GitHub repo.
 - No custom login/auth in MVP.
 - No comments.
-- Custom payment via Stripe Checkout (hosted page, no custom card form).
+- No internal payment or e-commerce.
 - UI language: **Swedish only** (`sv-SE`) for user-facing text.
-- Shipping: **Sweden only**.
-- Prefer keeping visitors on the main website for shopping (internal product pages with Stripe Checkout).
+- Content hub: link out to external shops/services for purchases.
 
 ---
 
 ## 3) Non-goals (MVP)
 
+- No internal e-commerce / Stripe checkout.
 - No full headless Shopify storefront.
 - No tagging/search system for blog.
 - No complex community features.
@@ -58,20 +59,13 @@ Primary market: **Sweden**.
 ## 5) Configuration Contract
 
 Create/maintain `config/site.ts` with at least:
-- `siteName: "Cleanconscience"`
-- `siteUrl: "https://TODO_DOMAIN"` (replace for production)
+- `siteName: "Cecilia Strandevall"`
+- `siteUrl: "https://ceciliastrandevall.se"`
 - `locale: "sv-SE"`
-- `currency: "SEK"`
-- `contactEmail: "sjiimon94@gmail.com"`
-- Optional social links: instagram, tiktok, youtube, x, facebook
-- shopify:
-  - domain
-  - buy button fallback URL
-  - optional product/collection IDs
-- teachable:
-  - school URL + per-course URLs
-- podcast:
-  - RSS URL should come from env var (`PODCAST_RSS_URL`)
+- `contactEmail: "cecilia@strandevall.se"`
+- Optional social links: instagram, tiktok, youtube, facebook
+- teachable: school URL + per-course URLs
+- podcast: RSS URL should come from env var (`PODCAST_RSS_URL`)
 
 ---
 
@@ -79,53 +73,46 @@ Create/maintain `config/site.ts` with at least:
 
 1. `/` Start
    - Hero (Swedish)
-   - 4 clear CTA cards: Butik, Kurser, Podcast, Blogg
-   - Featured products (Shopify embeds; placeholder IDs OK)
+   - 4 CTA cards: Produkter, Kurser, Podcast, Publiceringar
    - Latest podcast episode (from RSS)
    - Latest blog posts (3)
 
-2. `/butik`
-   - Categories: Böcker, Merch
-   - Internal product catalog from `src/data/products.ts`
-   - Each product links to `/butik/[slug]` detail page
-   - Stripe Checkout for payment (SEK, Sweden only shipping)
-   - Clear text: “Gratis frakt inom Sverige”.
+2. `/utforska` Overview hub
+   - Grid cards linking to: Produkter, Vattenfilter, Kurser, Podcast, Publiceringar
 
-3. `/kurser`
-   - Course cards (Swedish)
-   - At least one course: “Barnvaccinationer” (ordered video series)
-   - Buttons link to Teachable (MVP)
-   - Explain courses hosted externally
+3. `/utforska/produkter`
+   - Book info page with external CTA to bookshop
 
-4. `/podcast`
+4. `/utforska/vattenfilter`
+   - Info page with external CTA to Ecofilters of Sweden
+
+5. `/utforska/publiceringar`
+   - Publications grid from `src/data/publications.ts`
+   - Each entry has: title, description, type tag, date, outlet, image (all optional except url)
+
+6. `/kurser`
+   - Course cards (Swedish) linking to Teachable
+
+7. `/podcast`
    - Fetch and parse RSS from `PODCAST_RSS_URL`
-   - List episodes (newest first)
-   - Episode pages: `/podcast/[slug]` with embedded Spotify if possible else HTML5 audio enclosure
-   - Robust error handling
+   - Episode pages: `/podcast/[slug]`
 
-5. `/blogg`
+8. `/blogg`
    - List MDX posts (newest first)
    - Post pages: `/blogg/[slug]`
 
-6. `/socialt`
-   - Social buttons/links from config
+9. `/socialt` — Social links
+10. `/om` — About (MDX)
+11. `/kontakt` — Contact
+12. `/stod` — Support page
 
-7. `/om` (MDX)
-
-8. `/kontakt`
-   - Swedish contact text
-   - `mailto:` link to contact email
-   - Optional mailto form UI
-
-9. Policy pages (MDX drafts with disclaimer they are templates):
-   - `/integritetspolicy`, `/villkor`, `/retur`, `/frakt`
+Policy pages: `/integritetspolicy`, `/villkor`
 
 Global:
-- Responsive navbar: Start, Butik, Kurser, Podcast, Blogg, Socialt, Om, Kontakt
-- Footer: social links + policy links + copyright
+- Responsive navbar: Start, Utforska (dropdown with sub-items), Socialt, Om, Kontakt, Stöd
+- Footer: Utforska links + Hjälp + Om + social links + copyright
 - Accessibility: semantic HTML, good contrast, keyboard navigation
-- Design: clean, modern, neutral
-- SEO: metadata per page (Swedish), OpenGraph/Twitter, sitemap.xml, robots.txt
+- SEO: metadata per page (Swedish), OpenGraph
 
 ---
 
@@ -136,12 +123,11 @@ Global:
 
 ---
 
-## 8) Shopify Buy Button Requirements
+## 8) Publications Data Source
 
-- Provide a `<ShopifyBuyButton />` component that can render product or collection via ID.
-- Load Shopify Buy Button script only once (client-side).
-- If config missing: show fallback button linking to fallback URL.
-- Document how to obtain Shopify values and where to set them.
+Maintain `src/data/publications.ts` with a typed `Publication[]` array.
+Each entry requires only `url`. Optional fields: `title`, `description`, `image`, `type`, `date`, `outlet`.
+New publications are added by adding entries to this array (newest first).
 
 ---
 

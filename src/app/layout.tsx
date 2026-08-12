@@ -3,7 +3,6 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { CartProvider } from "@/context/CartContext";
 import { siteConfig } from "../config/site";
 
 export const metadata: Metadata = {
@@ -56,11 +55,9 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
-        <CartProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </CartProvider>
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

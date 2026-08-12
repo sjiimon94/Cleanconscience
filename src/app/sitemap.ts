@@ -2,15 +2,16 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/mdx";
 import { fetchEpisodes } from "@/lib/podcast";
 import { getSafeBaseUrl } from "@/lib/safe-base-url";
-import { products } from "@/data/products";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { url: baseUrl } = getSafeBaseUrl();
 
   const staticRoutes = [
     "/",
-    "/butik",
-    "/varukorg",
+    "/utforska",
+    "/utforska/produkter",
+    "/utforska/vattenfilter",
+    "/utforska/publiceringar",
     "/kurser",
     "/podcast",
     "/blogg",
@@ -20,8 +21,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/stod",
     "/integritetspolicy",
     "/villkor",
-    "/retur",
-    "/frakt",
   ];
 
   const entries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
@@ -30,16 +29,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "weekly" as const,
     priority: route === "/" ? 1 : 0.7,
   }));
-
-  // Dynamic product routes
-  for (const product of products) {
-    entries.push({
-      url: `${baseUrl}/butik/${product.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    });
-  }
 
   // Dynamic blog routes
   const posts = getAllPosts();
