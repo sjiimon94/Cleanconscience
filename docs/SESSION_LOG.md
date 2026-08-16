@@ -43,6 +43,47 @@ Implementation notes:
 
 Approved spec changes: None
 
+## 2026-05-20 — Option 2: exakta kommandon för att populera sjiimon94/stinab-ckerna.se nu
+
+Summary:
+- Dokumenterade en körbar, komplett kommandosekvens för användarens valda alternativ 2 (populera målrepo direkt från `book-site/` i `sjiimon94/Cleanconscience`).
+- Kommandona följer den tidigare manuella extraktionsworkflowen, inklusive de tre fixarna och skapande av `.env.local.example`.
+
+Manual command sequence (run on your local machine):
+```bash
+set -euo pipefail
+
+git clone https://github.com/sjiimon94/Cleanconscience.git /tmp/cc
+rm -rf /tmp/book-standalone
+mkdir -p /tmp/book-standalone
+cp -R /tmp/cc/book-site/. /tmp/book-standalone/
+cd /tmp/book-standalone
+
+# Fix 1: localhost fallback in layout.tsx
+perl -pi -e 's|http://localhost:3001|http://localhost:3000|g' src/app/layout.tsx
+
+# Fix 2: localhost fallback in checkout route
+perl -pi -e 's|http://localhost:3001|http://localhost:3000|g' src/app/api/checkout/route.ts
+
+# Fix 3: copyright name in footer
+perl -pi -e 's|© \\{year\\} Cleanconscience|© {year} Cecilia Strandevall|g' src/components/Footer.tsx
+
+# Add missing env example
+cat > .env.local.example <<'EOF'
+STRIPE_SECRET_KEY=sk_live_...
+NEXT_PUBLIC_SITE_URL=https://stinab-ckerna.se
+EOF
+
+git init
+git add .
+git branch -M main
+git commit -m "feat: initial standalone extraction from Cleanconscience/book-site"
+git remote add origin https://github.com/sjiimon94/stinab-ckerna.se.git
+git push -u origin main
+```
+
+Approved spec changes: None
+
 ## 2026-04-10 — Real social links, "Fler plattformar", Spotify show ID, podcast RSS docs
 
 Summary:
