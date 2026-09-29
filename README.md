@@ -4,7 +4,7 @@
 - Goals/constraints (authoritative): `docs/PRODUCT_SPEC.md`
 - Recent decisions (append-only log): `docs/SESSION_LOG.md`
 
-En snabb, SEO-vänlig webbplats för **Cecilia Strandevall** – barnboksförfattare, podcastvärd och grundare av Cleanconscience.
+En snabb, SEO-vänlig webbplats för **Cleanconscience**, med Cecilia Strandevall som personen bakom innehållet.
 
 - **Teknik:** Next.js (App Router) · TypeScript · Tailwind CSS · MDX
 - **Marknad:** Sverige (svenska UI-texter)
@@ -69,7 +69,7 @@ Om `PODCAST_RSS_URL` saknas fungerar appen ändå – podcastsidorna visar inga 
 | Socialt | `/socialt` |
 | Om | `/om` |
 | Kontakt | `/kontakt` |
-| Stöd | `/stod` |
+| Stötta | `/stod` |
 
 ### Underkategorier under Utforska
 
@@ -118,6 +118,8 @@ All central konfiguration finns i **`src/config/site.ts`**.
 | **`support`** | Stödlänkar (t.ex. Patreon) |
 | **`teachable`** | Teachable-skola + kurser |
 | **`podcast`** | `rssUrl` hämtas från `process.env.PODCAST_RSS_URL` |
+
+`siteName` är `"Cleanconscience"`.
 
 ---
 

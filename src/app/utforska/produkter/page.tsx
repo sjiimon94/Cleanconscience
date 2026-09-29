@@ -44,7 +44,7 @@ export default function ProdukterPage() {
             </p>
             <div className="mt-6">
               <a
-                href="https://www.adlibris.com/se/sok?q=stina+och+mamma+st%C3%A4dar"
+                href="https://stinabockerna.se"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-clay px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-clay-dark"

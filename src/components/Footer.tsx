@@ -34,7 +34,7 @@ const footerColumns = [
     links: [
       { label: "Om Cecilia", href: "/om" },
       { label: "Socialt", href: "/socialt" },
-      { label: "Stöd projektet", href: "/stod" },
+      { label: "Stötta projektet", href: "/stod" },
       { label: "Integritetspolicy", href: "/integritetspolicy" },
     ],
   },

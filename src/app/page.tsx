@@ -101,7 +101,7 @@ export default async function Home() {
                   href={`/podcast/${latestEpisode.slug}`}
                   className="mt-2 block text-sm font-medium text-warm-white transition-colors hover:text-clay-light"
                 >
-                  {latestEpisode.title}
+                  Avsnitt {latestEpisode.episodeNumber}: {latestEpisode.title}
                 </Link>
               ) : (
                 <p className="mt-2 text-sm text-sage-light/85">
@@ -166,6 +166,34 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="bg-warm-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-5xl items-center gap-8 rounded-3xl border border-border-soft bg-white p-6 shadow-sm sm:p-8 md:grid-cols-[minmax(0,320px)_1fr] md:gap-12">
+          <Image
+            src="/images/profilbild.jpeg"
+            alt="Porträtt av Cecilia Strandevall"
+            width={320}
+            height={320}
+            className="mx-auto aspect-square w-full max-w-80 rounded-2xl object-cover"
+          />
+          <div>
+            <h2 className="text-2xl font-bold text-ink">
+              Om mig och Cleanconscience
+            </h2>
+            <p className="mt-4 leading-relaxed text-ink-light">
+              Hej, jag heter Cecilia Strandevall och driver Cleanconscience – en
+              plats för dig som vill göra mer medvetna val, hitta kunskap som går
+              på djupet och känna dig trygg i dina beslut.
+            </p>
+            <Link
+              href="/om"
+              className="mt-5 inline-block text-sm font-semibold text-clay transition-colors hover:text-clay-dark"
+            >
+              Läs mer om mig →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Wave transition: warm-white → sand */}
       <WaveDivider fillTop="#FAF8F5" fillBottom="#F0E8DC" />
 
@@ -213,7 +241,7 @@ export default async function Home() {
               <div className="mt-6 card-hover rounded-2xl border border-border-soft bg-white p-6 shadow-sm">
                 <h3 className="text-lg font-semibold text-ink">
                   <Link href={`/podcast/${latestEpisode.slug}`} className="hover:text-sage-dark transition-colors">
-                    {latestEpisode.title}
+                    Avsnitt {latestEpisode.episodeNumber}: {latestEpisode.title}
                   </Link>
                 </h3>
                 <p className="mt-1 text-sm text-ink-muted">{latestEpisode.date}</p>

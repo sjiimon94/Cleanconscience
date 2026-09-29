@@ -3,7 +3,7 @@ import { siteConfig } from "../../config/site";
 
 export const metadata: Metadata = {
   title: "Socialt",
-  description: "Följ Cleanconscience på sociala medier.",
+  description: "Följ mig på sociala medier.",
 };
 
 const allSocialPlatforms = [
@@ -31,7 +31,7 @@ export default function SocialtPage() {
         Sociala medier
       </h1>
       <p className="mt-2 text-gray-600">
-        Följ oss för uppdateringar, tips och inspiration.
+        Följ mig för uppdateringar, tips och inspiration.
       </p>
 
       {configured.length > 0 ? (
@@ -47,7 +47,7 @@ export default function SocialtPage() {
               <span className="text-2xl">{link.icon}</span>
               <div>
                 <p className="font-semibold text-gray-900">{link.label}</p>
-                <p className="text-sm text-emerald-600">Följ oss →</p>
+                <p className="text-sm text-emerald-600">Följ mig →</p>
               </div>
             </a>
           ))}
@@ -58,7 +58,7 @@ export default function SocialtPage() {
             Sociala medier-länkar är inte konfigurerade ännu.
           </p>
           <p className="mt-1 text-sm text-gray-400">
-            Vi uppdaterar den här sidan snart!
+            Jag uppdaterar den här sidan snart!
           </p>
         </div>
       )}
@@ -91,7 +91,7 @@ export default function SocialtPage() {
           <span className="text-2xl">🎬</span>
           <div>
             <p className="font-semibold text-gray-900">Rumble</p>
-            <p className="text-sm text-emerald-600">Följ oss →</p>
+            <p className="text-sm text-emerald-600">Följ mig →</p>
           </div>
         </a>
       </div>

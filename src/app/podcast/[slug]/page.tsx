@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { fetchEpisodes, getEpisodeBySlug } from "@/lib/podcast";
+import { getEpisodeBySlug } from "@/lib/podcast";
 import { siteConfig } from "../../../config/site";
 
 interface PodcastEpisodePageProps {
@@ -21,8 +21,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const episodes = await fetchEpisodes();
-  return episodes.map((ep) => ({ slug: ep.slug }));
+  return [];
 }
 
 export default async function PodcastEpisodePage({
@@ -44,7 +43,7 @@ export default async function PodcastEpisodePage({
       </Link>
 
       <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900">
-        {episode.title}
+        Avsnitt {episode.episodeNumber}: {episode.title}
       </h1>
       <p className="mt-2 text-sm text-gray-400">
         {episode.date}
