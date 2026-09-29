@@ -3,7 +3,7 @@ import Link from "next/link";
 import { siteConfig } from "../../config/site";
 
 export const metadata: Metadata = {
-  title: "Stöd projektet",
+  title: "Stötta projektet",
   description:
     "Stötta Cleanconscience via Patreon eller Swish och hjälp till att hålla projektet igång.",
 };
@@ -15,7 +15,7 @@ export default function StodPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-20 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight text-ink">
-        Stöd projektet
+        Stötta projektet
       </h1>
       <p className="mt-4 text-base leading-relaxed text-ink-muted">
         Tack för att du vill stötta Cleanconscience! Ditt bidrag hjälper mig att
@@ -93,7 +93,7 @@ export default function StodPage() {
       </div>
 
       <p className="mt-12 text-sm text-ink-muted">
-        Tack från hjärtat för ditt stöd! 💚
+        Tack från hjärtat för att du stöttar! 💚
       </p>
     </div>
   );

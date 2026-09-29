@@ -55,7 +55,7 @@ export interface SiteConfig {
 /* ------------------------------------------------------------------ */
 
 export const siteConfig: SiteConfig = {
-  siteName: "Cecilia Strandevall",
+  siteName: "Cleanconscience",
   siteUrl: "https://ceciliastrandevall.se",
   locale: "sv-SE",
   currency: "SEK",

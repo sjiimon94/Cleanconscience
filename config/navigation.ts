@@ -20,5 +20,5 @@ export const navItems: NavItem[] = [
   { label: "Socialt", href: "/socialt" },
   { label: "Om", href: "/om" },
   { label: "Kontakt", href: "/kontakt" },
-  { label: "Stöd", href: "/stod" },
+  { label: "Stötta", href: "/stod" },
 ];

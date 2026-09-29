@@ -59,7 +59,7 @@ No internal e-commerce, payment, cart, or checkout. Primary market: **Sweden**.
 ## 5) Configuration Contract
 
 Create/maintain `config/site.ts` with at least:
-- `siteName: "Cecilia Strandevall"`
+- `siteName: "Cleanconscience"`
 - `siteUrl: "https://ceciliastrandevall.se"`
 - `locale: "sv-SE"`
 - `contactEmail: "cecilia@strandevall.se"`
@@ -109,7 +109,7 @@ Create/maintain `config/site.ts` with at least:
 Policy pages: `/integritetspolicy`, `/villkor`
 
 Global:
-- Responsive navbar: Start, Utforska (dropdown with sub-items), Socialt, Om, Kontakt, Stöd
+- Responsive navbar: Start, Utforska (dropdown with sub-items), Socialt, Om, Kontakt, Stötta
 - Footer: Utforska links + Hjälp + Om + social links + copyright
 - Accessibility: semantic HTML, good contrast, keyboard navigation
 - SEO: metadata per page (Swedish), OpenGraph

@@ -404,3 +404,22 @@ Approved spec changes:
 - Updated PRODUCT_SPEC §5 (Config): removed Shopify config
 - Updated PRODUCT_SPEC §6 (Routes): new Utforska routes, removed butik/varukorg/checkout/frakt/retur
 - Updated PRODUCT_SPEC §8: replaced Shopify Buy Button with Publications Data Source
+
+## 2026-09-29 — Podcast, copy och varumärke
+
+Summary:
+- Rättade RSS-hanteringen så avsnitt med varierande `<item>`-taggformat och citerade attribut kan läsas. Avsnitten hämtas nu från den centrala `PODCAST_RSS_URL`-konfigurationen och cachetiden har sänkts till fem minuter.
+- Podcastdetaljsidor genereras vid begäran i stället för att RSS-avsnitt måste finnas vid bygget. Temporära RSS-fel fortsätter att ge de befintliga tomlägena.
+- Avsnittslistan sorteras nyast först. RSS-numret används när det finns; annars får avsnitten kronologiska nummer där det äldsta är nummer 1. Numret visas på startsidan, listan och detaljsidan.
+- Bytte boklänken till `https://stinabockerna.se`, justerade personliga följtexter och stödetiketter samt lade till en tillgänglig om-sektion på startsidan med den befintliga porträttbilden.
+- Gjorde Cleanconscience till konsekvent webbplatsnamn i konfigurationen och dokumentationen. Cecilia Strandevall behålls där hon avser personen.
+
+Implementation notes:
+- Grundorsaken var en skör XML-uppdelning på exakt strängen `<item>` samt en timmes RSS-cache. Detaljsidornas statiska parametrar hämtades dessutom enbart vid byggtillfället; de genereras nu vid begäran så nya RSS-avsnitt kan nås utan ombygge.
+- Ändrade filer omfattar `src/lib/podcast.ts`, startsidan, podcastsidorna, social- och produktsidorna, navigation, stödsidan, footer, central konfiguration, README, PRODUCT_SPEC och denna logg.
+- Ingen ny beroendekostnad eller intern köp-/betalningsfunktion tillagd.
+
+Approved spec changes:
+- Ändrade konfigurationskontraktet till `siteName: "Cleanconscience"`.
+- Ändrade synlig navigationsetikett från “Stöd” till “Stötta”; routen är fortsatt `/stod`.
+- Inga andra specifikationsändringar.

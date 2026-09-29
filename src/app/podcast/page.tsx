@@ -53,7 +53,7 @@ export default async function PodcastPage() {
               >
                 <p className="text-xs text-gray-400">{ep.date}</p>
                 <h2 className="mt-1 text-lg font-semibold text-gray-900 group-hover:text-emerald-600">
-                  {ep.title}
+                  Avsnitt {ep.episodeNumber}: {ep.title}
                 </h2>
                 <p className="mt-1 text-sm text-gray-500">
                   {ep.description}
